@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>User Registration</title>
+<!-- Meta tag Keywords -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Sales Inquiry Form Responsive Widget Template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Meta tag Keywords -->
+<!-- css files -->
+<link href="{% static 'styleregistration.css' %}" rel="stylesheet" type="text/css" media="all">
+<!-- //css files -->
+<!-- online-fonts -->
+<link href="//fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
+</head>
+<body>
+	
+	<!--//header-->
+	<!--main--><br><br><br><br><br>
+	<div class="agileits-main">
+		<div class="wrap">
+		<form action="#" method="post">
+			{% csrf_token %}
+			<ul>
+				<li class="text">Full Name  :  </li>
+				<li><input name="name" type="text" required></li>
+			</ul>
+			
+			<ul>
+				<li class="text">Username  :  </li>
+				<li><input name="username" type="text" required></li>
+			</ul>
+			
+			<ul>
+				<li class="text">E-mail  :  </li>
+				<li><input name="email" type="email" required></li>
+			</ul>
+			
+			<ul>
+				<li class="text">Mobile no  :  </li>
+				<li><input name="mobile" type="tel" pattern="[0-9]{10}" required></li>
+			</ul>
+			
+			<ul>
+				<li class="text">Password  :  </li>
+				<li><input name="password1" type="text" required></li>
+			</ul>
+			
+			<ul>
+				<li class="text">confirm password  :  </li>
+				<li><input name="password2" type="text" required></li>
+			</ul>
+			<div class="clear"></div>
+			<div class="agile-submit">
+				<input type="submit" value="submit">
+				<br><br>
+				{% for message in messages %}
+			<p style="color: white;">{{message}}</p>
+			{% endfor %}
+			</div>
+			
+			</form>
+			
+		</div>	
+	</div>
+
+</body>
+</html>

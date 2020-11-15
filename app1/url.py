@@ -21,21 +21,23 @@ urlpatterns = [
     path('adminlogout/', views.adminlogout, name="adminlogout"),
     path('userlogin/', views.userlogin, name="userlogin"),
     path('userlogout/', views.userlogout, name="userlogout"),
-    path('userhome/', views.userhome, name="userhome"),
+    # path('userhome/', views.userhome, name="userhome"),
     path('categorymanagement', views.categorymanagement, name="categorymanagement"),
     path('addcategory/', views.addcategory, name="addcategory"),
     path('deletecategory/<int:id>', views.deletecategory, name='deletecategory'),
     #for testing
-    path('test/', views.test, name="test"),
+    # path('test/', views.test, name="test"),
 
     #user home pages
-    path('registereduser', views.registereduserhomepage, name="registereduser"),
-    path('', views.userhomepage, name="userhomepage"),
-    path('quickview/', views.quickview, name="quickview"),
-    path('contact/', views.contact, name="contact"),
-    path('productof/', views.product, name="productof"),
-    path('checkout/', views.checkout, name="checkout"),
-    path('cart/', views.cart, name="cart"),
+    path('nw_userhome', views.nw_userhome, name="nw_userhome"),
+    path('', views.actual_userhome, name="actual_userhome"),
+    # path('registereduser/', views.registereduser, name="registereduser"),
+    # path('', views.userhomepage, name="userhomepage"),
+    # path('quickview/', views.quickview, name="quickview"),
+    # path('contact/', views.contact, name="contact"),
+    # path('productof/', views.product, name="productof"),
+    # path('checkout/', views.checkout, name="checkout"),
+    # path('cart/', views.cart, name="cart"),
    
     
 ]

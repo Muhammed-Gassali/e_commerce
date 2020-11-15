@@ -248,8 +248,8 @@ def userlogin(request):
         if user is not None:
             auth.login(request, user)
             # return JsonResponse("hai", safe=False)
-
-            return render(request, 'registereduserhomepage.html')
+            value = products.objects.all()
+            return redirect('nw_userhome')
         else:
             value={"username":username}
             messages.info(request, 'invalid credentials')
@@ -263,9 +263,9 @@ def userlogin(request):
         return render(request, 'userloginpage.html')
 
 #function for loading userhome page
-def userhome(request):
-    if request.user.is_authenticated:
-        return render(request, 'userhome.html') 
+# def userhome(request):
+#     if request.user.is_authenticated:
+#         return render(request, 'userhome.html') 
     # else:
     #     return redirect('/')
 
@@ -311,41 +311,54 @@ def userregistration(request):
 
 
 
+
 #function to test user hom page
-def userhomepage(request):
-    value= products.objects.all()
-    return render(request, 'userhomepagenew/index.html',{'value':value})
+# def userhomepage(request):
+#     value= products.objects.all()
+#     return render(request, 'userhomepagenew/index.html',{'value':value})
 
 
 #function to get registered user home page
-def registereduserhomepage(request):
-    value= products.objects.all()
-    return render(request, 'registereduserhomepage.html',{'value':value})
+# def registereduserhomepage(request):
+#     value= products.objects.all()
+#     return render(request, '/registereduser.html',{'value':value})
 
-def quickview(request):
-    return render(request, 'userhomepagenew/single.html')
-
-
-def contact(request):
-    return render(request, 'userhomepagenew/contact.html')
-
-def product(request):
-    return render(request, 'userhomepagenew/product.html')
+# def quickview(request):
+#     return render(request, 'userhomepagenew/single.html')
 
 
-def checkout(request):
+# def contact(request):
+#     return render(request, 'userhomepagenew/contact.html')
+
+# def product(request):
+#     return render(request, 'userhomepagenew/product.html')
+
+
+# def checkout(request):
    
-    if request.method == 'POST':
-        return render(request, 'userhomepagenew/checkout.html')
-    else:
-        return render(request, 'userhomepagenew/checkout.html')
+#     if request.method == 'POST':
+#         return render(request, 'userhomepagenew/checkout.html')
+#     else:
+#         return render(request, 'userhomepagenew/checkout.html')
 
 
 
-def cart(request):
-    return render(request, 'userhomepagenew/cart.html')
+# def cart(request):
+#     return render(request, 'userhomepagenew/cart.html')
 
 
 
-def test(request):
-    return render(request, 'addproductnew.html')
+# def registereduser(request):
+#     value = products.objects.all()
+#     print(value)
+#     return render(request, 'userhomepagenew/registereduser.html',{'value':value})
+
+
+
+def nw_userhome(request):
+    value=products.objects.all()
+    return render(request, 'nw/store.html',  {"value":value})
+
+def actual_userhome(request):
+    value=products.objects.all()
+    return render(request, 'nw/actualuserhome.html',  {"value":value})

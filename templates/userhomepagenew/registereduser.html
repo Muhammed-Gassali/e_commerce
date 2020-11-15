@@ -9,7 +9,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <html lang="zxx">
 
 <head>
-	<title>Registered User Home Page</title>
+	<title>home page</title>
 	<!--/tags -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -79,6 +79,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<!-- search -->
 				<div class="agileits_search">
 					<form action="#" method="post">
+						{% csrf_token %}
 						<input name="Search" type="search" placeholder="How can we help you today?" required="">
 						<button type="submit" class="btn btn-default" aria-label="Left Align">
 							<span class="fa fa-search" aria-hidden="true"> </span>
@@ -90,6 +91,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="top_nav_right">
 					<div class="wthreecartaits wthreecartaits2 cart cart box_1">
 						<form action="#" method="post" class="last">
+							{% csrf_token %}
 							<input type="hidden" name="cmd" value="_cart">
 							<input type="hidden" name="display" value="1">
 							<button class="w3view-cart" type="submit" name="submit" value="">
@@ -126,6 +128,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								Sign Up Now</a>
 						</p>
 						<form action="#" method="post">
+							{% csrf_token %}
 							<div class="styled-input agile-styled-input-top">
 								<input type="text" placeholder="User Name" name="Name" required="">
 							</div>
@@ -163,6 +166,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							Come join the Grocery Shoppy! Let's set up your Account.
 						</p>
 						<form action="#" method="post">
+							{% csrf_token %}
 							<div class="styled-input agile-styled-input-top">
 								<input type="text" placeholder="Name" name="Name" required="">
 							</div>
@@ -237,10 +241,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</div>
 						<!-- Collect the nav links, forms, and other content for toggling -->
 						<div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
-                            <!-- {% csrf_token % } -->
 							<ul class="nav navbar-nav menu__list">
 								<li class="active">
-									<a class="nav-stylehead" href="{% url 'registereduser' %}">Home
+									<a class="nav-stylehead" href="userhomepagenew/index.html">Home
 										<span class="sr-only">(current)</span>
 									</a>
 								</li>
@@ -253,7 +256,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<a class="nav-stylehead" href="{% url 'userlogout' %}">Logout</a>
 									
 								</li>
-								
 							</ul>
 						</div>
 					</div>
@@ -357,7 +359,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						{% for x in value %}
 							{% if x.category.category_name == 'Laptop'%}
 						<div class="col-md-4 product-men">
-							
 							<div class="men-pro-item simpleCart_shelfItem">
 								<div class="men-thumb-item">
 									<!-- <img src="{% static 'userhomepagenew/images/m1.jpg' %}" alt=""> -->
@@ -381,7 +382,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<form action="{% url 'checkout' %}" method="post">
 											{% csrf_token %}
 											<fieldset>
-												<input type="hidden" name="cmd" value="_cart" />
+												<!-- <input type="hidden" name="cmd" value="_cart" />
 												<input type="hidden" name="add" value="1" />
 												<input type="hidden" name="business" value=" " />
 												<input type="hidden" name="item_name" value="{{x.product_name}}" />
@@ -389,7 +390,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 												
 												<input type="hidden" name="currency_code" value="USD" />
 												<input type="hidden" name="return" value=" " />
-												<input type="hidden" name="cancel_return" value=" " />
+												<input type="hidden" name="cancel_return" value=" " /> -->
 												<input type="submit" name="submit" value="Add to cart" class="button" />
 											</fieldset>
 										</form>
@@ -514,7 +515,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</div>
 						</div>
 						 {% endif %}
-						 {%endfor %}
+						 {% endfor %}
 						<div class="clearfix"></div>
 					</div>
 					<!-- //fourth section (noodles) -->

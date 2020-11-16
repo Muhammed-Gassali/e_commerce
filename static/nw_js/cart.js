@@ -21,5 +21,23 @@ for(var i=0; i<updateBtns.length; i++)
 function updateUserOrder(productId, action)
 {
     console.log("user is logined")
-    
+    var url = '/updateitem/' 
+
+    fetch (url, {
+    method: 'POST',
+    headers:{
+            'X-CSRFToken':csrftoken,
+            'Content-Type':'application/json',  
+    },
+    body:JSON.stringify({'productId':productId, 'action':action})
+    })
+
+    .then((response) => {
+        return response.json()
+    })
+
+    .then((data) => {
+        console.log('data:',data)
+        location.reload()
+    })
 }

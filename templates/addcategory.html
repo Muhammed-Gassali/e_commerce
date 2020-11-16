@@ -281,7 +281,7 @@ table.table td i {
 <section id="container">
 <!--header start-->
 <header class="header fixed-top clearfix">
->
+
 
 <div class="top-nav clearfix">
     <!--search & user info start-->
@@ -317,13 +317,13 @@ table.table td i {
         <div class="leftside-navigation">
             <ul class="sidebar-menu" id="nav-accordion">
                 <li>
-                    <a class="active" href="{% url 'admindashboard' %}">
+                    <a  href="{% url 'admindashboard' %}">
                         <i class="fa fa-dashboard"></i>
                         <span>Dashboard</span>
                     </a>
 				</li>
 				<li>
-                    <a class="active" href="#">
+                    <a  href="#">
                         <i class="fa fa-dashboard"></i>
                         <span>Orders</span>
                     </a>
@@ -336,9 +336,15 @@ table.table td i {
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a class="#" href="{% url 'usermanagemnet' %}">
                         <i class="fa fa-bullhorn"></i>
                         <span>User Management </span>
+                    </a>
+                </li>
+                <li>
+                    <a class="active" href="{% url 'categorymanagement' %}">
+                        <i class="fa fa-bullhorn"></i>
+                        <span>Category Management </span>
                     </a>
                 </li>
                 </ul>
@@ -350,9 +356,10 @@ table.table td i {
 
 <br><br><br>
 <div class="w3-main" style="margin-left:300px">
-    <br><br><br>
-   <a href="{% url 'addcategory' %}"> <button type="button" class="btn btn-primary" >Add Category</button></a>
-    <br><br><br>
+    
+    <br>
+    <h1 style="text-align: center; font-size :xx-large">Add Category</h1>
+    <br>    
     <div class="agileits-main">
 		<div class="wrap">
 		<form action="#" enctype="multipart/form-data" method="post">

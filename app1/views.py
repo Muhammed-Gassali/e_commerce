@@ -2,7 +2,10 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
-from .models import products,category
+from .models import products,category,Order,OrderItem,ShippingAddress   
+from django.http import JsonResponse
+import json
+import datetime
 
 
 
@@ -237,8 +240,8 @@ def deletecategory(request, id):
 
 # fuction used for loading userlogin
 def userlogin(request):
-    # if request.user.is_authenticated:
-    #     return redirect('userhomepage')
+    if request.user.is_authenticated:
+        return redirect('nw_userhome')
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -282,6 +285,9 @@ def userlogout(request):
 
 # function used to userregistrtaion
 def userregistration(request):
+    if request.user.is_authenticated:
+        return redirect('nw_userhome')
+
     if request.method == 'POST':
         name = request.POST['name']
         username = request.POST['username']
@@ -356,9 +362,68 @@ def userregistration(request):
 
 
 def nw_userhome(request):
-    value=products.objects.all()
-    return render(request, 'nw/store.html',  {"value":value})
+    if request.user.is_authenticated:
+        user = request.user
+        value=products.objects.all()
+        order, created = Order.objects.get_or_create(user=user, complete=False)
+        items = order.orderitem_set.all()
+        print("hello ", items)
+        cartitems = order.get_cart_items
+        context = {'value':value, 'cartitems':cartitems}
+        return render(request, 'nw/store.html', context)
+    else:
+        return redirect(actual_userhome)
 
 def actual_userhome(request):
-    value=products.objects.all()
-    return render(request, 'nw/actualuserhome.html',  {"value":value})
+    if request.user.is_authenticated:
+        return redirect(nw_userhome)
+    else:
+        value=products.objects.all()
+        return render(request, 'nw/actualuserhome.html',  {"value":value})
+
+
+# functio for adding to cart
+def updateitem(request):
+
+    data = json.loads(request.body)
+    productId = data['productId']
+    action = data['action']
+
+    print(action)
+    print(productId)
+    
+    user = request.user
+    print(user)
+    product = products.objects.get(id=productId)
+    order, created = Order.objects.get_or_create(user=user, complete=False)
+    print(product)
+
+    orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+
+    if action == 'add':
+        orderItem.quantity = (orderItem.quantity + 1)
+    elif action == 'remove':
+        orderItem.quantity = (orderItem.quantity - 1)
+    
+    orderItem.save()
+
+    if orderItem.quantity <= 0:
+        orderItem.delete()
+    return JsonResponse('item was Added', safe=False)
+
+def cart(request):
+    if request.user.is_authenticated:
+        user = request.user
+        order, created = Order.objects.get_or_create(user=user, complete=False)
+        items = order.orderitem_set.all()
+        print("hello ", items)
+        cartitems = order.get_cart_items
+    else:
+        items = []
+        order = {'get_cart_total':0, 'get_cart_items':0}
+        cartitems = order['get_cart_items']
+    context = {'items':items,'order':order, 'cartitems':cartitems}
+    return render(request, 'nw/cart.html', context)
+
+def checkout(request):
+    return render(request, 'nw/checkout.html')

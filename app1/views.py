@@ -233,6 +233,8 @@ def deletecategory(request, id):
         return redirect(categorymanagement)
 
 
+def orderadminview(request):
+    return render(request, 'orderadminview.html')
 
 
 
@@ -422,8 +424,42 @@ def cart(request):
         items = []
         order = {'get_cart_total':0, 'get_cart_items':0}
         cartitems = order['get_cart_items']
-    context = {'items':items,'order':order, 'cartitems':cartitems}
+    context = {'items':items,'order':order, 'cartitems':cartitems, }
     return render(request, 'nw/cart.html', context)
 
 def checkout(request):
-    return render(request, 'nw/checkout.html')
+    if request.user.is_authenticated:
+        user = request.user
+        order, created = Order.objects.get_or_create(user=user, complete=False)
+        items = order.orderitem_set.all()
+        print("hello ", items)
+        cartitems = order.get_cart_items
+    else:
+        items = []
+        order = {'get_cart_total':0, 'get_cart_items':0}
+        cartitems = order['get_cart_items']
+    context = {'items':items,'order':order, 'cartitems':cartitems, }
+    return render(request, 'nw/checkout.html', context)
+
+
+def processOrder(request):
+    transaction_id = datetime.datetime.now().timestamp()
+    data = json.loads(request.body)
+
+    if request.user.is_authenticated:
+        user = request.user
+        order, created = Order.objects.get_or_create(user=user, complete=False)
+        total = float(data['form']['total'])
+        order.transaction_id = transaction_id
+
+        if total == order.get_cart_total:
+            order.complete = True
+        order.save() 
+        ShippingAddress.objects.create(user=user,order=order,address=data['shipping']['address'],city=data['shipping']['city'],state=data['shipping']['state'],zipcode=data['shipping']['zipcode'])
+    else:
+        print('user not logged in')
+    return JsonResponse('Payment Complete', safe=False)
+
+
+    
+    

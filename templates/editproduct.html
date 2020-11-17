@@ -331,7 +331,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</li>
 					
 					<li class="active" class="sub-menu">
-						<a class="active"   href="#">
+						<a class="active"   href="{% url 'productmanagement' %}">
 							<i class="fa fa-book"></i>
 							<span>Product Management</span>
 						</a>
@@ -389,6 +389,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 											<div class="form-group">
 											  <input type="textarea" class="form-control" id="description"  name="desc" placeholder="Description" value="{{values.description}}"required="">
 											  
+											</div>
+											<div class="form-group">
+												<input type="file" class="form-control" id="image"  name="image" placeholder="choose" required="" onchange="viewImage(event)">
+												
+											  </div>
+											<div>
+													<img id="myimg" style="height: 200px; width:200px" src="{{values.ImageURL}}" alt="">
 											</div>
 											<!-- <div class="form-group">
 												<input type="file" class="form-control" id="image"  name="image" placeholder="choose" value="{{values.image}}" required="">
@@ -468,6 +475,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				});
 
 			});
+			function viewImage(event){
+				document.getElementById('myimg').src = URL.createObjectURL(event.target.files[0])
+			}
 
 		</script>
 		<!-- //input-forms -->

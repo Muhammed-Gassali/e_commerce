@@ -25,6 +25,7 @@ urlpatterns = [
     path('categorymanagement', views.categorymanagement, name="categorymanagement"),
     path('addcategory/', views.addcategory, name="addcategory"),
     path('deletecategory/<int:id>', views.deletecategory, name='deletecategory'),
+    path('orderadminview/', views.orderadminview, name="orderadminview"),
     #for testing
     # path('test/', views.test, name="test"),
 
@@ -43,6 +44,8 @@ urlpatterns = [
     path('updateitem/' ,views.updateitem, name="updateitem"),
     path('cart/', views.cart, name="cart"),
     path('checkout/', views.checkout, name="checkout"),
+    path('processOrder/', views.processOrder, name="processOrder"),
+    
    
     
 ]

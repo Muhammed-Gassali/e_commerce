@@ -363,7 +363,9 @@ table.table td i {
           <tr>
             <th scope="col">Order Id</th>
             <th scope="col">Transaction Id</th>
-            <th scope="col">User Name</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
             <th scope="col">Address</th>
             <th scope="col">Payment Status</th>
             <th scope="col">Order Status</th>
@@ -372,14 +374,21 @@ table.table td i {
           </tr>
         </thead>
         <tbody>
-            {% for x in product %}
+            {% for x in value %}
           <tr>
             <th scope="row">{{x.id}}</th>
-            <td>{{x.category.category_name}}</td>
-            <td>{{x.product_name}}</td>
-            <td>{{x.description}}</td>
-            <td>{{x.price}}</td>
-            <td><img  style="width:70px;height:70px;" src="{{x.ImageURL}}"></td>
+            <td>{{x.order.transaction_id}}</td>
+            <td>{{x.product.product_name}}</td>
+                <td>{{x.quantity}}</td>
+                <td>{{x.get_total}}</td>
+                
+                <td>{{x.address.address}}</td>
+            
+            <td>Payment status</td>
+            <td>order status</td>
+            <td>{{x.date_added}}</td>
+
+            <!-- <td><img  style="width:70px;height:70px;" src="{{x.ImageURL}}"></td> -->
             <td>
                 
                 <a href="/edit/{{x.id}}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>

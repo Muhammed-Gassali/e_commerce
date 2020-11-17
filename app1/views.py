@@ -234,7 +234,10 @@ def deletecategory(request, id):
 
 
 def orderadminview(request):
-    return render(request, 'orderadminview.html')
+    value = OrderItem.objects.all().order_by('id')
+    
+    
+    return render(request, 'orderadminview.html', {'value':value} )
 
 
 
@@ -456,6 +459,7 @@ def processOrder(request):
             order.complete = True
         order.save() 
         ShippingAddress.objects.create(user=user,order=order,address=data['shipping']['address'],city=data['shipping']['city'],state=data['shipping']['state'],zipcode=data['shipping']['zipcode'])
+        
     else:
         print('user not logged in')
     return JsonResponse('Payment Complete', safe=False)

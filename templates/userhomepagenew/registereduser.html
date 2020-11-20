@@ -1,15 +1,10 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="zxx">
 
 <head>
-	<title>home page</title>
+	<title> Registered User home page</title>
 	<!--/tags -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -35,12 +30,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<link rel="stylesheet" type="text/css" href="{% static 'userhomepagenew/css/jquery-ui1.css' %}">
 	<!-- fonts -->
 	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
+	<!--profile icone-->
+	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+	<!--//profile icone-->
 </head>
 
 <body>
 	<!-- top-header -->
 	<div class="header-most-top">
-		<p>Grocery Offer Zone Top Deals & Discounts</p>`
+		<p> Offer Zone Top Deals & Discounts</p>`
 	</div>
 	<!-- //top-header -->
 	<!-- header-bot-->
@@ -50,7 +48,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col-md-4 logo_agile">
 				<h1>
 					<a href="#">
-						<span>G</span>rocery
+						<span>E</span>lectro	
 						<span>S</span>hoppy
 						<img src="{% static 'userhomepagenew/images/logo2.png' %}" alt=" ">
 					</a>
@@ -74,6 +72,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<a href="{% url 'register' %}">
 							<span class="fa fa-pencil-square-o" aria-hidden="true"></span> Sign Up </a>
 					</li>
+					<li>
+						<!-- <a href="#" data-toggle="modal" data-target="#myModal2"> -->
+							<a href="{% url 'profile' %}">
+							<span class="fas fa-user-circle" aria-hidden="true"></span> Pofile	 </a>
+					</li>
 				</ul>
 				<!-- //header lists -->
 				<!-- search -->
@@ -90,10 +93,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<!-- cart details -->
 				<div class="top_nav_right">
 					<div class="wthreecartaits wthreecartaits2 cart cart box_1">
-						<form action="#" method="post" class="last">
+						<form action="{% url 'cart' %}" method="post" class="last">
 							{% csrf_token %}
-							<input type="hidden" name="cmd" value="_cart">
-							<input type="hidden" name="display" value="1">
+							<!-- <input type="hidden" name="cmd" value="_cart">
+							<input type="hidden" name="display" value="1"> -->
 							<button class="w3view-cart" type="submit" name="submit" value="">
 								<i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
 							</button>
@@ -197,22 +200,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="ban-top">
 		<div class="container">
 			<div class="agileits-navi_search">
-				<!-- <br>
-				<select name="cars" id="cars">
-					<option value="volvo">Volvo</option>
-					<option value="saab">Saab</option>
-					<option value="opel">Opel</option>
-					<option value="audi">Audi</option>
-				  </select> -->
-				<!-- <form action="#" method="post">
-					<select id="agileinfo-nav_search" name="agileinfo_search" required="">
-						<option value="">All Categories</option>
-					<a href="">	<option value="Kitchen">Televesion</option> </a>
-						<option value="Household">Laptop</option>
-						<option value="Household">Mobile Phones</option>
-					
-					</select>
-				</form>  -->
+			
 				<br>
 				<div class="dropdown">
 					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -251,6 +239,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							
 								<li class="">
 									<a class="nav-stylehead" href="{% url 'contact' %}">Contact</a>
+								</li>
+								<li class="">
+									<a class="nav-stylehead" href="{% url 'user_order' %}">Order Summary</a>
                                 </li>
                                 <li class="">
 									<a class="nav-stylehead" href="{% url 'userlogout' %}">Logout</a>
@@ -282,7 +273,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</h3>
 						<p>Get flat
 							<span>10%</span> Cashback</p>
-						<a class="button2" href="{% url 'productof' %}">Shop Now </a>
+						
 					</div>
 				</div>
 			</div>
@@ -365,35 +356,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<img  style="width:70px;height:70px; "src="{{x.ImageURL}}" alt="">
 									<div class="men-cart-pro">
 										<div class="inner-men-cart-pro">
-											<a href="{% url 'quickview' %}" class="link-product-add-cart">Quick View</a>
+											<a href="{% url 'quickview' x.id %}" class="link-product-add-cart">Quick View</a>
 										</div>
 									</div>
 									<span class="product-new-top">New</span>
 								</div>
 								<div class="item-info-product ">
 									<h4>
-										<a href="{% url 'quickview' %}">{{x.product_name}}</a>
+										<a href="#">{{x.product_name}}</a>
 									</h4>
 									<div class="info-product-price">
-										<span class="item_price">₹{{x.price}}</span>
+										<span class="item_price">${{x.price}}</span>
 										<!-- <del>$280.00</del> -->
 									</div>
-									<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-										<form action="{% url 'checkout' %}" method="post">
-											{% csrf_token %}
+									<div class="snipcart-details hvr-outline-out">
+
 											<fieldset>
-												<!-- <input type="hidden" name="cmd" value="_cart" />
-												<input type="hidden" name="add" value="1" />
-												<input type="hidden" name="business" value=" " />
-												<input type="hidden" name="item_name" value="{{x.product_name}}" />
-												<input type="hidden" name="amount" value="{{x.price}}" />
-												
-												<input type="hidden" name="currency_code" value="USD" />
-												<input type="hidden" name="return" value=" " />
-												<input type="hidden" name="cancel_return" value=" " /> -->
-												<input type="submit" name="submit" value="Add to cart" class="button" />
+											<a href="{% url 'add_cart' x.id %}"><input type="submit" name="submit" value="Add to cart" class="button" /></a>
 											</fieldset>
-										</form>
+									
 									</div>
 
 								</div>
@@ -430,36 +411,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<img  style="width:70px;height:70px; "src="{{x.ImageURL}}" alt="">
 									<div class="men-cart-pro">
 										<div class="inner-men-cart-pro">
-											<a href="{% url 'quickview' %}" class="link-product-add-cart">Quick View</a>
+											<a href="{% url 'quickview' x.id %}" class="link-product-add-cart">Quick View</a>
 										</div>
 									</div>
 									<span class="product-new-top">New</span>
 								</div>
 								<div class="item-info-product ">
 									<h4>
-										<a href="{% url 'quickview' %}">{{x.product_name}}</a>
+										<a href="#">{{x.product_name}}</a>
 									</h4>
 									<div class="info-product-price">
-										<span class="item_price">₹{{x.price}}</span>
+										<span class="item_price">${{x.price}}</span>
 										<!-- <del>$110.00</del> -->
 									</div>
-									<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-										<form action="#" method="post">
-											{% csrf_token %}
-											<fieldset>
-												<input type="hidden" name="cmd" value="_cart" />
-												<input type="hidden" name="add" value="1" />
-												<input type="hidden" name="business" value=" " />
-												<input type="hidden" name="item_name" value="Freedom Sunflower Oil, 1L" />
-												<input type="hidden" name="amount" value="78.00" />
-												<input type="hidden" name="discount_amount" value="1.00" />
-												<input type="hidden" name="currency_code" value="USD" />
-												<input type="hidden" name="return" value=" " />
-												<input type="hidden" name="cancel_return" value=" " />
-												<input type="submit" name="submit" value="Add to cart" class="button" />
-											</fieldset>
-										</form>
-									</div>
+									<div class="snipcart-details hvr-outline-out">
+
+										<fieldset>
+										<a href="{% url 'add_cart' x.id %}"><input type="submit" name="submit" value="Add to cart" class="button" /></a>
+										</fieldset>
+								
+								</div>
+
 
 								</div>
 							</div>
@@ -481,35 +453,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<img  style="width:70px;height:70px; "src="{{x.ImageURL}}" alt="">
 									<div class="men-cart-pro">
 										<div class="inner-men-cart-pro">
-											<a href="{% url 'quickview' %}" class="link-product-add-cart">Quick View</a>
+											<a href="{% url 'quickview' x.id %}" class="link-product-add-cart">Quick View</a>
 										</div>
 									</div>
 								</div>
 								<div class="item-info-product ">
 									<h4>
-										<a href="{% url 'quickview' %}">{{x.product_name}}</a>
+										<a href="#">{{x.product_name}}</a>
 									</h4>
 									<div class="info-product-price">
-										<span class="item_price">₹{{x.price}}</span>
+										<span class="item_price">${{x.price}}</span>
 										<!-- <del>$25.00</del> -->
 									</div>
-									<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-										<form action="{% url 'cart' %}" method="post">
-											{% csrf_token %}
-											<fieldset>
-												<!-- <input type="hidden" name="cmd" value="_cart" />
-												<input type="hidden" name="add" value="1" />
-												<input type="hidden" name="business" value=" " />
-												<input type="hidden" name="item_name" value="YiPPee Noodles, 65g" />
-												<input type="hidden" name="amount" value="15.00" />
-												<input type="hidden" name="discount_amount" value="1.00" />
-												<input type="hidden" name="currency_code" value="SD" />
-												<input type="hidden" name="return" value=" " />
-												<input type="hidden" name="cancel_return" value=" " /> -->
-												<input type="submit" name="submit" value="Add to cart" class="button" />
-											</fieldset>
-										</form>
-									</div>
+									<div class="snipcart-details hvr-outline-out">
+
+										<fieldset>
+										<a href="{% url 'add_cart' x.id %}"><input type="submit" name="submit" value="Add to cart" class="button" /></a>
+										</fieldset>
+								
+								</div>
+
 
 								</div>
 							</div>

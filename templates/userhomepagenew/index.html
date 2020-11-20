@@ -40,7 +40,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <body>
 	<!-- top-header -->
 	<div class="header-most-top">
-		<p>Grocery Offer Zone Top Deals & Discounts</p>`
+		<p> Offer Zone Top Deals & Discounts</p>`
 	</div>
 	<!-- //top-header -->
 	<!-- header-bot-->
@@ -50,7 +50,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col-md-4 logo_agile">
 				<h1>
 					<a href="#">
-						<span>G</span>rocery
+						<span>E</span>lectro
 						<span>S</span>hoppy
 						<img src="{% static 'userhomepagenew/images/logo2.png' %}" alt=" ">
 					</a>
@@ -89,12 +89,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<!-- cart details -->
 				<div class="top_nav_right">
 					<div class="wthreecartaits wthreecartaits2 cart cart box_1">
-						<form action="#" method="post" class="last">
-							<input type="hidden" name="cmd" value="_cart">
-							<input type="hidden" name="display" value="1">
+						<a href="#" data-toggle="modal" data-target="#myModal1">
+							<!-- <input type="hidden" name="cmd" value="_cart">
+							<input type="hidden" name="display" value="1"> -->
 							<button class="w3view-cart" type="submit" name="submit" value="">
 								<i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-							</button>
+							</button></a>
 						</form>
 					</div>
 				</div>
@@ -193,22 +193,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="ban-top">
 		<div class="container">
 			<div class="agileits-navi_search">
-				<!-- <br>
-				<select name="cars" id="cars">
-					<option value="volvo">Volvo</option>
-					<option value="saab">Saab</option>
-					<option value="opel">Opel</option>
-					<option value="audi">Audi</option>
-				  </select> -->
-				<!-- <form action="#" method="post">
-					<select id="agileinfo-nav_search" name="agileinfo_search" required="">
-						<option value="">All Categories</option>
-					<a href="">	<option value="Kitchen">Televesion</option> </a>
-						<option value="Household">Laptop</option>
-						<option value="Household">Mobile Phones</option>
-					
-					</select>
-				</form>  -->
+				
 				<br>
 				<div class="dropdown">
 					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -239,7 +224,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav menu__list">
 								<li class="active">
-									<a class="nav-stylehead" href="userhomepagenew/index.html">Home
+									<a class="nav-stylehead" href="{% url 'userhomepage' %}">Home
 										<span class="sr-only">(current)</span>
 									</a>
 								</li>
@@ -274,7 +259,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</h3>
 						<p>Get flat
 							<span>10%</span> Cashback</p>
-						<a class="button2" href="{% url 'productof' %}">Shop Now </a>
+						<!-- <a class="button2" href="#">Shop Now </a> -->
 					</div>
 				</div>
 			</div>
@@ -357,33 +342,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<img  style="width:70px;height:70px; "src="{{x.ImageURL}}" alt="">
 									<div class="men-cart-pro">
 										<div class="inner-men-cart-pro">
-											<a href="{% url 'quickview' %}" class="link-product-add-cart">Quick View</a>
+											<a href="{% url 'quickview' x.id %}" class="link-product-add-cart">Quick View</a>
 										</div>
 									</div>
 									<span class="product-new-top">New</span>
 								</div>
 								<div class="item-info-product ">
 									<h4>
-										<a href="{% url 'quickview' %}">{{x.product_name}}</a>
+										<a href="#">{{x.product_name}}</a>
 									</h4>
 									<div class="info-product-price">
-										<span class="item_price">₹{{x.price}}</span>
+										<span class="item_price">${{x.price}}</span>
 										<!-- <del>$280.00</del> -->
 									</div>
-									<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+									<div class="snipcart-details hvr-outline-out">
 										<form action="{% url 'checkout' %}" method="post">
 											{% csrf_token %}
 											<fieldset>
-												<input type="hidden" name="cmd" value="_cart" />
-												<input type="hidden" name="add" value="1" />
-												<input type="hidden" name="business" value=" " />
-												<input type="hidden" name="item_name" value="{{x.product_name}}" />
-												<input type="hidden" name="amount" value="{{x.price}}" />
-												
-												<input type="hidden" name="currency_code" value="USD" />
-												<input type="hidden" name="return" value=" " />
-												<input type="hidden" name="cancel_return" value=" " />
-												<input type="submit" name="submit" value="Add to cart" class="button" />
+												<a href="#" data-toggle="modal" data-target="#myModal1"><input type="submit" name="submit" value="Add to cart" class="button" /></a>
+													
 											</fieldset>
 										</form>
 									</div>
@@ -422,20 +399,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<img  style="width:70px;height:70px; "src="{{x.ImageURL}}" alt="">
 									<div class="men-cart-pro">
 										<div class="inner-men-cart-pro">
-											<a href="{% url 'quickview' %}" class="link-product-add-cart">Quick View</a>
+											<a href="{% url 'quickview' x.id %}" class="link-product-add-cart">Quick View</a>
 										</div>
 									</div>
 									<span class="product-new-top">New</span>
 								</div>
 								<div class="item-info-product ">
 									<h4>
-										<a href="{% url 'quickview' %}">{{x.product_name}}</a>
+										<a href="#">{{x.product_name}}</a>
 									</h4>
 									<div class="info-product-price">
-										<span class="item_price">₹{{x.price}}</span>
+										<span class="item_price">${{x.price}}</span>
 										<!-- <del>$110.00</del> -->
 									</div>
-									<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+									<!-- <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
 										<form action="#" method="post">
 											<fieldset>
 												<input type="hidden" name="cmd" value="_cart" />
@@ -450,7 +427,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 												<input type="submit" name="submit" value="Add to cart" class="button" />
 											</fieldset>
 										</form>
-									</div>
+									</div> -->
 
 								</div>
 							</div>
@@ -472,16 +449,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<img  style="width:70px;height:70px; "src="{{x.ImageURL}}" alt="">
 									<div class="men-cart-pro">
 										<div class="inner-men-cart-pro">
-											<a href="{% url 'quickview' %}" class="link-product-add-cart">Quick View</a>
+											<a href="{% url 'quickview' x.id %}" class="link-product-add-cart">Quick View</a>
 										</div>
 									</div>
 								</div>
 								<div class="item-info-product ">
 									<h4>
-										<a href="{% url 'quickview' %}">{{x.product_name}}</a>
+										<a href="#">{{x.product_name}}</a>
 									</h4>
 									<div class="info-product-price">
-										<span class="item_price">₹{{x.price}}</span>
+										<span class="item_price">${{x.price}}</span>
 										<!-- <del>$25.00</del> -->
 									</div>
 									<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">

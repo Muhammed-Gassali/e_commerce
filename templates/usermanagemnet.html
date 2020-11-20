@@ -291,9 +291,9 @@ table.table td i {
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu extended logout">
-                <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
-                <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                <li><a href="login.html"><i class="fa fa-key"></i> Log Out</a></li>
+                <!-- <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
+                <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li> -->
+                <li><a href="{% url 'adminlogout' %}"><i class="fa fa-key"></i> Log Out</a></li>
             </ul>
         </li>
         <!-- user login dropdown end -->
@@ -317,7 +317,7 @@ table.table td i {
                     </a>
 				</li>
 				<li>
-                    <a href="#">
+                    <a href="{% url 'manage_order' %}">
                         <i class="fa fa-dashboard"></i>
                         <span>Orders</span>
                     </a>
@@ -353,37 +353,44 @@ table.table td i {
     <br>
     <h1 style="text-align: center;">User Management</h1>
    <a href="{% url 'adduser' %}">
-       <div class="container-fluid"><button type="button" class="btn btn-primary pull-right mr-5 pr-5" >Add User</button></a></div> 
+       <div class="container"><button type="button" class="btn btn-primary pull-right mr-5 pr-5" >Add User</button></a></div> 
     <br><br><br>
-      <table class="table table-dark " style="margin-right:auto;margin-left:0px" id="dataTable">
-        <thead>
-          <tr>
-            <th scope="col">User_Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Username</th>
-            <th scope="col">E-mail</th>
-            <th scope="col">Phone NO</th>
-            
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-            {% for x in user %}
-          <tr>
-            <th scope="row">{{x.id}}</th>
-            <td>{{x.first_name}}</td>
-            <td>{{x.username}}</td>
-            
-            <td>{{x.email}}</td>
-            <td>{{x.last_name}}</td>
-                <td>
-                <a href="/edituser/{{x.id}}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                <a href="{% url 'deleteuser' x.id  %}" class="delete" title="Delete" data-toggle="tooltip"><i  onclick="return confirm('are you sure you wanat to delete')" class="material-icons">&#xE872;</i></a>
-            </td>
-          </tr>
-         {% endfor %}
-        </tbody>
-      </table>
+    <div class="row">
+        <!-- <div class=""> -->
+            <div class="col-lg-12">
+                <table class="table table-dark " style="margin-right:auto;margin-left:0px" id="dataTable">
+                    <thead>
+                      <tr>
+                        <th scope="col">User_Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Phone NO</th>
+                        
+                        <th scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for x in user %}
+                      <tr>
+                        <th scope="row">{{x.id}}</th>
+                        <td>{{x.first_name}}</td>
+                        <td>{{x.username}}</td>
+                        
+                        <td>{{x.email}}</td>
+                        <td>{{x.last_name}}</td>
+                            <td>
+                            <a href="/edituser/{{x.id}}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a href="{% url 'deleteuser' x.id  %}" class="delete" title="Delete" data-toggle="tooltip"><i  onclick="return confirm('are you sure you wanat to delete')" class="material-icons">&#xE872;</i></a>
+                        </td>
+                      </tr>
+                     {% endfor %}
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+
     </div>
     
 <!--sidebar end-->
@@ -394,13 +401,13 @@ table.table td i {
 
 
 
-<script src="js/bootstrap.js"></script>
-<script src="js/jquery.dcjqaccordion.2.7.js"></script>
-<script src="js/scripts.js"></script>
-<script src="js/jquery.slimscroll.js"></script>
-<script src="js/jquery.nicescroll.js"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+<script src="{% static 'js/jquery.dcjqaccordion.2.7.js' %}"></script>
+<script src="{% static 'js/scripts.js' %}"></script>
+<script src="{% static 'js/jquery.slimscroll.js' %}"></script>
+<script src="{% static 'js/jquery.nicescroll.js' %}"></script>
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
-<script src="js/jquery.scrollTo.js"></script>
+<script src="{% static 'js/jquery.scrollTo.js' %}"></script>
 <!-- morris JavaScript -->	
 
 <!-- calendar -->

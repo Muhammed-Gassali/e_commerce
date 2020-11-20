@@ -18,7 +18,7 @@
 <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 <!-- bootstrap-css -->
 <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}" >
-<!-- //bootstrap-css -->
+<!-- //bootstrap-css --> 
 <!-- Custom CSS -->
 <link href="{% static 'style.css' %}" rel='stylesheet' type='text/css' />
 <link href="{% static 'style-responsive.css' %}" rel="stylesheet"/>
@@ -292,9 +292,9 @@
 						<b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu extended logout">
-						<li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
-						<li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-						<li><a href="login.html"><i class="fa fa-key"></i> Log Out</a></li>
+						<!-- <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
+						<li><a href="#"><i class="fa fa-cog"></i> Settings</a></li> -->
+						<li><a href="{% url 'adminlogout' %}"><i class="fa fa-key"></i> Log Out</a></li>
 					</ul>
 				</li>
 				<!-- user login dropdown end -->
@@ -318,7 +318,7 @@
 							</a>
 						</li>
 						<li>
-							<a class="" href="#">
+							<a class="" href="{% url 'manage_order' %}">
 								<i class="fa fa-dashboard"></i>
 								<span>Orders</span>
 							</a>
@@ -353,7 +353,7 @@
 				<div class="grids">
 					<div class="progressbar-heading grids-heading">
 						<br><br><br>
-						<h2>Add Product</h2>
+						<h2>Add Products</h2>
 					</div>
 					
 					<div class="forms-grids  contanier-fluid ">
@@ -383,6 +383,10 @@
 											  <input type="textarea" class="form-control" id="description"  name="desc" placeholder="Description" required="">
 											  
 											</div>
+											<div class="form-group">
+												<input type="number"   class="form-control" id="quantity" name="quantity" placeholder="quantity" required="">
+												<!-- <span class="help-block">Minimum of 6 characters</span> -->
+											  </div>
 											<div class="form-group">
 												<input type="file" class="form-control" id="image"  name="image" placeholder="choose" required="" onchange="viewImage(event)">
 												

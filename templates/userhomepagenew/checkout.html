@@ -249,29 +249,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<ul class="dropdown-menu multi-column columns-3">
 										<div class="agile_inner_drop_nav_info">
 											<div class="col-sm-4 multi-gd-img">
-												<ul class="multi-column-dropdown">
-													<li>
-														<a href="product.html">Bakery</a>
-													</li>
-													<li>
-														<a href="product.html">Baking Supplies</a>
-													</li>
-													<li>
-														<a href="product.html">Coffee, Tea & Beverages</a>
-													</li>
-													<li>
-														<a href="product.html">Dried Fruits, Nuts</a>
-													</li>
-													<li>
-														<a href="product.html">Sweets, Chocolate</a>
-													</li>
-													<li>
-														<a href="product.html">Spices & Masalas</a>
-													</li>
-													<li>
-														<a href="product.html">Jams, Honey & Spreads</a>
-													</li>
-												</ul>
+												
 											</div>
 											<div class="col-sm-4 multi-gd-img">
 												<ul class="multi-column-dropdown">
@@ -412,6 +390,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 	</div>
 	<!-- //page -->
+	<!--Actual --------------------------###############################################################################################----------------------------------------------------- page -->
 	<!-- checkout page -->
 	<div class="privacy">
 		<div class="container">
@@ -423,126 +402,69 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<i></i>
 				</span>
 			</h3>
-			<!-- //tittle heading -->
+
 			<div class="checkout-right">
-				<h4>Your shopping cart contains:
-					<span>3 Products</span>
-				</h4>
+				<h4>Order Summary</h4>
 				<div class="table-responsive">
 					<table class="timetable_sub">
 						<thead>
 							<tr>
 								<th>SL No.</th>
-								<th>Product</th>
-								<th>Quality</th>
+								<th>Quantity</th>
 								<th>Product Name</th>
 
 								<th>Price</th>
-								<th>Remove</th>
 							</tr>
 						</thead>
 						<tbody>
+						{% for x in items %}
 							<tr class="rem1">
 								<td class="invert">1</td>
-								<td class="invert-image">
-									<a href="single2.html">
-										<img src="{% static 'userhomepagenew/images/a7.jpg' %}" alt=" " class="img-responsive">
-									</a>
-								</td>
 								<td class="invert">
 									<div class="quantity">
 										<div class="quantity-select">
 											<div class="entry value-minus">&nbsp;</div>
 											<div class="entry value">
-												<span>1</span>
+												<span>{{x.quantity}}</span>
 											</div>
 											<div class="entry value-plus active">&nbsp;</div>
 										</div>
 									</div>
 								</td>
-								<td class="invert">Spotzero Spin Mop</td>
-								<td class="invert">$888.00</td>
-								<td class="invert">
-									<div class="rem">
-										<div class="close1"> </div>
-									</div>
-								</td>
+								<td class="invert">{{x.product.product_name}}</td>
+								<td class="invert">{{x.get_total}}</td>
 							</tr>
-							<tr class="rem2">
-								<td class="invert">2</td>
-								<td class="invert-image">
-									<a href="single2.html">
-										<img src="images/s6.jpg" alt=" " class="img-responsive">
-									</a>
-								</td>
-								<td class="invert">
-									<div class="quantity">
-										<div class="quantity-select">
-											<div class="entry value-minus">&nbsp;</div>
-											<div class="entry value">
-												<span>1</span>
-											</div>
-											<div class="entry value-plus active">&nbsp;</div>
-										</div>
-									</div>
-								</td>
-								<td class="invert">Fair & Lovely, 80 g</td>
-								<td class="invert">$121.60</td>
-								<td class="invert">
-									<div class="rem">
-										<div class="close2"> </div>
-									</div>
-								</td>
-							</tr>
-							<tr class="rem3">
-								<td class="invert">3</td>
-								<td class="invert-image">
-									<a href="single.html">
-										<img src="images/s5.jpg" alt=" " class="img-responsive">
-									</a>
-								</td>
-								<td class="invert">
-									<div class="quantity">
-										<div class="quantity-select">
-											<div class="entry value-minus">&nbsp;</div>
-											<div class="entry value">
-												<span>1</span>
-											</div>
-											<div class="entry value-plus active">&nbsp;</div>
-										</div>
-									</div>
-								</td>
-								<td class="invert">Sprite, 2.25L (Pack of 2)</td>
-								<td class="invert">$180.00</td>
-								<td class="invert">
-									<div class="rem">
-										<div class="close3"> </div>
-									</div>
-								</td>
-							</tr>
+						{% endfor %}
 						</tbody>
 					</table>
 				</div>
 			</div>
+			<p>Total Price = {{total_price}}</p>
 			<div class="checkout-left">
 				<div class="address_form_agile">
-					<h4>Add a new Details</h4>
-					<form action="payment.html" method="post" class="creditly-card-form agileinfo_form">
+					<h4>Add Details</h4>
+
+
+
+
+
+					<form action="{% url 'user_payment' %}" method="POST" class="creditly-card-form agileinfo_form">
+						{% csrf_token %}
 						<div class="creditly-wrapper wthree, w3_agileits_wrapper">
 							<div class="information-wrapper">
 								<div class="first-row">
 									<div class="controls">
-										<input class="billing-address-name" type="text" name="name" placeholder="Full Name" required="">
+										<input class="billing-address-name" type="text" name="first_name" placeholder="Full Name" required="" value="{{user.first_name}}">
 									</div>
 									<div class="w3_agileits_card_number_grids">
 										<div class="w3_agileits_card_number_grid_left">
 											<div class="controls">
-												<input type="text" placeholder="Mobile Number" name="number" required="">
+												<input type="text" placeholder="Address" name="address1" required="">
 											</div>
 										</div>
 										<div class="w3_agileits_card_number_grid_right">
 											<div class="controls">
-												<input type="text" placeholder="Landmark" name="landmark" required="">
+												<input type="text" placeholder="State" name="state" required="">
 											</div>
 										</div>
 										<div class="clear"> </div>
@@ -551,24 +473,93 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<input type="text" placeholder="Town/City" name="city" required="">
 									</div>
 									<div class="controls">
-										<select class="option-w3ls">
-											<option>Select Address type</option>
-											<option>Office</option>
-											<option>Home</option>
-											<option>Commercial</option>
-
-										</select>
+										<input type="text" placeholder="Zipcode" name="zipcode" required="">
 									</div>
 								</div>
-								<button class="submit check_out">Delivery to this Address</button>
 							</div>
 						</div>
-					</form>
+
+
+
+
+
+<!------------------------Payment mode -------------------->
+
+					<!-- <div>
+						<div class="checkbox">
+						  <label><input type="raido" value="">Cash On Delivery </label>
+						</div>
+						<div class="checkbox">
+							<label><input type="radio" value="">PayPal </label>
+						  </div>
+						  <div class="checkbox">
+							<label><input type="radio" value="">RazorPay	 </label>
+						  </div>
+					</div> -->
+					<div class="radio">
+						<label>
+						  <input type="radio" name="survey" id="Radios1" value="Yes">
+						  Cash On Delivery
+						</label>
+					  </div>
+					  <div class="radio">
+						<label>
+						  <input type="radio" name="survey" id="Radios2" value="No">
+						  PayPal
+						</label>
+					  </div>
+					  <div class="radio">
+						<label>
+						  <input type="radio" name="survey" id="Radios2" value="No">
+							RazorPay
+						</label>
+					  </div>
+					  <div id="paypal-button-container"></div>
+
+					  <!-- Include the PayPal JavaScript SDK -->
+					  <script src="https://www.paypal.com/sdk/js?client-id=ARNmiM2HkiUGZ8FxDYJifT2uay8CGAvA8dwDmgWmXUHwl1WG9y9q5LIgBXuS9CmhUrvFVuT9FtVPMexo&currency=USD"></script>
+				  
+					  <script>
+						  // Render the PayPal button into #paypal-button-container
+						  paypal.Buttons({
+				  
+							  // Set up the transaction
+							  createOrder: function(data, actions) {
+								  return actions.order.create({
+									  purchase_units: [{
+										  amount: {
+											  value: '{{total_price}}'
+										  }
+									  }]
+								  });
+							  },
+				  
+							  // Finalize the transaction
+							  onApprove: function(data, actions) {
+								  return actions.order.capture().then(function(details) {
+									  // Show a success message to the buyer
+									  alert('Transaction completed by ' + details.payer.name.given_name + '!');
+								  });
+							  }
+				  
+				  
+						  }).render('#paypal-button-container');
+					  </script>
+<!--------------------//payment mode ----------------------->
+
 					<div class="checkout-right-basket">
-						<a href="payment.html">Make a Payment
-							<span class="fa fa-hand-o-right" aria-hidden="true"></span>
-						</a>
+							<button  type="submit" onclick="return confirm('Are you sure to Proceed?')" >Place Order
+							<span class="fa fa-hand-o-right" aria-hidden="true"></span></button>
+
 					</div>
+
+					</form>
+
+
+
+
+
+
 				</div>
 				<div class="clearfix"> </div>
 			</div>

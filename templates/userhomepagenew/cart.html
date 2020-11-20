@@ -32,6 +32,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<link rel="stylesheet" href="{% static 'userhomepagenew/css/flexslider.css' %}" type="text/css" media="screen" />
 	<!-- fonts -->
 	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
+	<script>
+		var user = '{{request.user}}'
+		function getCookie(name) {
+		let cookieValue = null;
+		if (document.cookie && document.cookie !== '') {
+			const cookies = document.cookie.split(';');
+			for (let i = 0; i < cookies.length; i++) {
+				const cookie = cookies[i].trim();
+				// Does this cookie string begin with the name we want?
+				if (cookie.substring(0, name.length + 1) === (name + '=')) {
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					break;
+				}
+			}
+		}
+		return cookieValue;
+	}
+	const csrftoken = getCookie('csrftoken');
+	
+	  </script>
 </head>
 
 <body>
@@ -191,23 +211,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="ban-top">
 		<div class="container">
 			<div class="agileits-navi_search">
-				<form action="#" method="post">
-					<select id="agileinfo-nav_search" name="agileinfo_search" required="">
-						<option value="">All Categories</option>
-						<option value="Kitchen">Kitchen</option>
-						<option value="Household">Household</option>
-						<option value="Snacks &amp; Beverages">Snacks & Beverages</option>
-						<option value="Personal Care">Personal Care</option>
-						<option value="Gift Hampers">Gift Hampers</option>
-						<option value="Fruits &amp; Vegetables">Fruits & Vegetables</option>
-						<option value="Baby Care">Baby Care</option>
-						<option value="Soft Drinks &amp; Juices">Soft Drinks & Juices</option>
-						<option value="Frozen Food">Frozen Food</option>
-						<option value="Bread &amp; Bakery">Bread & Bakery</option>
-						<option value="Sweets">Sweets</option>
-					</select>
-				</form>
-			</div>
+				<div class="dropdown">
+					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					  categories
+					</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					  <a  class="dropdown-item" href="#lap">Laptop</a>
+					  <br>
+					  <a class="dropdown-item" href="#tv">TV</a><br>
+					  <a class="dropdown-item" href="#mobile">Mobile Phone</a><br>
+					</div>
+				  </div>			</div>
 			<div class="top_nav_left">
 				<nav class="navbar navbar-default">
 					<div class="container-fluid">
@@ -225,7 +239,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav menu__list">
 								<li>
-									<a class="nav-stylehead" href="index.html">Home
+									<a class="nav-stylehead" href="{% url 'registereduserhomepage' %}">Home
 										<span class="sr-only">(current)</span>
 									</a>
 								</li>
@@ -247,39 +261,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 	</div>
 	<!-- Actal body -->
-	<!-- <div class="row">
-		<div class="col-lg-9">
-			<div class="box-element">
-
-				<a class="btn btn-outline-dark" href="#">&#x2190; continue shopping</a>
-				<br>
-				<br>
-				<table class="table">
-					<tr>
-						<th><h5>Items: <strong>3</strong></h5></th>
-						<th><h5>Total:<strong> $42</strong></h5></th>
-						<th>
-							<a  style="float:right; margin:5px;" class="btn btn-success" href="{% url 'checkout' %}">Checkout</a>
-						</th>
-					</tr>
-				</table>
-				</div>
-					<br>
-					<div class="box-element">
-						<div class="cart-row">
-							<div style="flex:2"></div>
-							<div style="flex:2"><strong>Item</strong></div>
-							<div style="flex:1"><strong>Price</strong></div>
-							<div style="flex:1"><strong>Quantity</strong></div>
-							<div style="flex:1"><strong>Total</strong></div>
-						</div>
-					</div>
-				</div>
-			</div>		 -->
+	
 			<br><br>
-			<div class="checkout-right container">
+			
+<!-- checkout page -->
+	<div class="privacy">
+		<div class="container">
+			<!-- tittle heading -->
+			<h3 class="tittle-w3l">Cart
+				<span class="heading-style">
+					<i></i>
+					<i></i>
+					<i></i>
+				</span>
+			</h3>
+			<!-- //tittle heading -->
+			<div class="checkout-right">
 				<h4>Your shopping cart contains:
-					<span>3 Products</span>
+					<span></span>
 				</h4>
 				<div class="table-responsive">
 					<table class="timetable_sub">
@@ -287,104 +286,61 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<tr>
 								<th>SL No.</th>
 								<th>Product</th>
-								<th>Quality</th>
-								<th>Product Name</th>
-
+								<th>Quantity</th>
+								<th>Product name</th>
 								<th>Price</th>
 								<th>Remove</th>
 							</tr>
 						</thead>
 						<tbody>
+							{% for x in cart_data %}
 							<tr class="rem1">
-								<td class="invert">1</td>
+								<td class="invert">{{x.id}}</td>
 								<td class="invert-image">
 									<a href="single2.html">
-										<img src="images/a7.jpg" alt=" " class="img-responsive">
+										<img style="height:50px; width:60px;" src="{{x.product.ImageURL}}" alt=" " class="img-responsive">
 									</a>
 								</td>
 								<td class="invert">
 									<div class="quantity">
 										<div class="quantity-select">
 											<div class="entry value-minus">&nbsp;</div>
-											<div class="entry value">
-												<span>1</span>
+											<div  class="entry value">
+												<span>{{x.quantity}}</span>
 											</div>
-											<div class="entry value-plus active">&nbsp;</div>
+											<div  class="entry value-plus active">&nbsp;</div>
 										</div>
 									</div>
 								</td>
-								<td class="invert">Spotzero Spin Mop</td>
-								<td class="invert">$888.00</td>
+								<td class="invert">{{x.product.product_name}}</td>
+								<td class="invert">${{x.get_total}}</td>
 								<td class="invert">
-									<div class="rem">
-										<div class="close1"> </div>
-									</div>
+									<a href="{% url 'user_removeOrderItem' x.id %}" type="submit" class="btn btn-outline-danger btn-rounded" onclick="return confirm('Are you sure to Remove this item?')">Remove<i class="fas fa-trash"></i></a>
 								</td>
 							</tr>
-							<tr class="rem2">
-								<td class="invert">2</td>
-								<td class="invert-image">
-									<a href="single2.html">
-										<img src="images/s6.jpg" alt=" " class="img-responsive">
-									</a>
-								</td>
-								<td class="invert">
-									<div class="quantity">
-										<div class="quantity-select">
-											<div class="entry value-minus">&nbsp;</div>
-											<div class="entry value">
-												<span>1</span>
-											</div>
-											<div class="entry value-plus active">&nbsp;</div>
-										</div>
-									</div>
-								</td>
-								<td class="invert">Fair & Lovely, 80 g</td>
-								<td class="invert">$121.60</td>
-								<td class="invert">
-									<div class="rem">
-										<div class="close2"> </div>
-									</div>
-								</td>
-							</tr>
-							<tr class="rem3">
-								<td class="invert">3</td>
-								<td class="invert-image">
-									<a href="single.html">
-										<img src="images/s5.jpg" alt=" " class="img-responsive">
-									</a>
-								</td>
-								<td class="invert">
-									<div class="quantity">
-										<div class="quantity-select">
-											<div class="entry value-minus">&nbsp;</div>
-											<div class="entry value">
-												<span>1</span>
-											</div>
-											<div class="entry value-plus active">&nbsp;</div>
-										</div>
-									</div>
-								</td>
-								<td class="invert">Sprite, 2.25L (Pack of 2)</td>
-								<td class="invert">$180.00</td>
-								<td class="invert">
-									<div class="rem">
-										<div class="close3"> </div>
-									</div>
-								</td>
-							</tr>
+						{% endfor %}
 						</tbody>
 					</table>
 				</div>
 			</div>
+			<div class="checkout-left">
+				<p>Total Price = ${{total_price}}</p>
+				<div class="address_form_agile">
+					<div class="checkout-right-basket">
+						<a href="{% url 'checkout' %}">Checkout
+							<span class="fa fa-hand-o-right" aria-hidden="true"></span>
+						</a>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<!-- //checkout page -->
 	<footer>
 		<div class="container">
 			<!-- footer first section -->
-			<p class="footer-main">
-				<span>"Grocery Shoppy"</span> Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-				magni dolores eos qui ratione voluptatem sequi nesciunt.Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-				accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
-				beatae vitae dicta sunt explicabo.</p>
+				
 		
 			<div class="footer-info w3-agileits-info">
 				<!-- footer categories -->
@@ -592,22 +548,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- //quanity -->
 
 	<!-- password-script -->
-	<script>
-		window.onload = function () {
-			document.getElementById("password1").onchange = validatePassword;
-			document.getElementById("password2").onchange = validatePassword;
-		}
-
-		function validatePassword() {
-			var pass2 = document.getElementById("password2").value;
-			var pass1 = document.getElementById("password1").value;
-			if (pass1 != pass2)
-				document.getElementById("password2").setCustomValidity("Passwords Don't Match");
-			else
-				document.getElementById("password2").setCustomValidity('');
-			//empty string means no validation error
-		}
-	</script>
+	
 	<!-- //password-script -->
 
 	<!-- smoothscroll -->
@@ -701,7 +642,32 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<script src="{% static 'userhomepagenew/js/bootstrap.js' %}"></script>
 	<!-- //for bootstrap working -->
 	<!-- //js-files -->
+<!-- <script>
+	function updateUserOrder(productId, action)
+{
+    console.log("user is logined")
+    var url = '/updateitem/' 
 
+    fetch (url, {
+    method: 'POST',
+    headers:{
+            'X-CSRFToken':csrftoken,
+            'Content-Type':'application/json',  
+    },
+    body:JSON.stringify({'productId':productId, 'action':action})
+    })
+
+    .then((response) => {
+        return response.json()
+    })
+
+    .then((data) => {
+        console.log('data:',data)
+        location.reload()
+    })
+}
+
+</script> -->
 </body>
 
 </html>

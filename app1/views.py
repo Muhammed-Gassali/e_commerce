@@ -8,6 +8,14 @@ import json
 import datetime
 import uuid
 
+# importing image cropping
+import base64
+from django.core.files.base import ContentFile
+
+# importiing razorpay
+import razorpay
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 from  django.core.files.storage import FileSystemStorage
@@ -74,7 +82,15 @@ def addproduct(request):
             desc = request.POST['desc']
             quantity = request.POST['quantity']
 
-            product = products.objects.create(product_name=productname, category=cat, price=price, description=desc, image=image, quantity=quantity)
+            # image cropping 
+            image_data = request.POST['pro_img']
+
+            format, imgstr = image_data.split(';base64,')
+            ext = format.split('/')[-1]
+
+            data = ContentFile(base64.b64decode(imgstr), name=productname + '.' + ext)
+
+            product = products.objects.create(product_name=productname, category=cat, price=price, description=desc, image=data, quantity=quantity)
             product.save()
             return redirect(productmanagement)
         else:
@@ -388,12 +404,12 @@ def quickview(request, id):
     return render(request, 'userhomepagenew/single.html', {'product': product})
 
 
-def checkout(request):
+# def checkout(request):
    
-    if request.method == 'POST':
-        return render(request, 'userhomepagenew/checkout.html')
-    else:
-        return render(request, 'userhomepagenew/checkout.html')
+#     if request.method == 'POST':
+#         return render(request, 'userhomepagenew/checkout.html')
+#     else:
+#         return render(request, 'userhomepagenew/checkout.html')
 
 
 def cart(request):
@@ -415,11 +431,6 @@ def add_cart(request, id):
     if request.user.is_authenticated:
         user = request.user
         product = products.objects.get(id=id)
-
-
-        
-
-
         if OrderItem.objects.filter(product=product).exists():
             order = OrderItem.objects.get(product=product)
             if order.quantity <= order.product.quantity:
@@ -451,11 +462,21 @@ def checkout(request):
         
         items = OrderItem.objects.filter(user=user)
         order = Order.objects.filter(user=user)
+        
         total_price = 0
         for x in items  :
             total_price = total_price + x.get_total
 
-        return render(request, 'userhomepagenew/checkout.html', {'items': items, 'order': order, 'total_price':total_price})
+        # razorpay integrate
+        if request.method == "POST":
+            amount = total_price*100*70
+            print("enterd ######################################")
+            print(amount)
+            order_currency = 'INR'
+            client = razorpay.Client('Uci1HLeyYAs4mMBvKzysJL2X', auth='rzp_test_666QJpopWh4z27')
+            payment = client.order.create({'amount':amount, 'currency':'INR', 'payment_capture':'1'})
+
+        return render(request, 'userhomepagenew/checkout.html', {'items': items, 'order': order, 'total_price':total_price, 'user':user})
     else:
         return render(request, 'userhomepagenew/index.html')
 

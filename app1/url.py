@@ -27,6 +27,7 @@ urlpatterns = [
     path('deletecategory/<int:id>', views.deletecategory, name='deletecategory'),
     path('manage-order/', views.manage_order, name="manage_order"),
     path('delete_order/<int:id>', views.delete_order, name="delete_order"),
+     path('cancel_order/<int:id>', views.cancel_order, name="cancel_order"),
 
 
   
@@ -63,7 +64,7 @@ urlpatterns = [
     path('userlogout/', views.userlogout, name="userlogout"),
     path('add-cart/<int:id>', views.add_cart, name="add_cart"),
     path('user-removeOrderItem/<int:id>', views.user_removeOrderItem, name="user_removeOrderItem"),
-    path('user-payment/', views.user_payment, name="user_payment"),
+    path('user_payment/', views.user_payment, name="user_payment"),
     path('user-order/', views.user_order, name="user_order"),
     path('profile/', views.profile, name="profile"),
     path('edit_profile/', views.edit_profile, name="edit_profile")

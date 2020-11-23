@@ -4,7 +4,7 @@
 <html lang="zxx">
 
 <head>
-	<title>my cart</title>
+	<title>Order Summary</title>
 	<!--/tags -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -273,7 +273,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                         <th>Quantity</th>
                                         <th>Price</th>
                                         <th>Order ON</th>
-                                        <th>Transaction ID</th>
+										<th>Transaction ID</th>
+										<th>Order Verify</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -283,7 +284,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                         <td>{{item.quantity}}</td>
                                         <td>{{item.total_price}}</td>
                                         <td>{{item.date_ordered}}</td>
-                                        <td>{{item.transaction_id}}</td>
+										<td>{{item.transaction_id}}</td>
+										{% if item.order_verify == True %}
+										<td>Success</td>
+										{% elif item.order_verify == False %}
+										<td>Canceled</td>
+										{% endif %}
 
                                     </tr>
 								{% endfor %}

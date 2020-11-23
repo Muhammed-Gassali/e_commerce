@@ -13,7 +13,6 @@ import base64
 from django.core.files.base import ContentFile
 
 # importiing razorpay
-import razorpay
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -120,12 +119,6 @@ def edit(request, id):
     else:
         return redirect(adminlogin)
  
-
-
-
-
-        
-
 
 
 
@@ -287,7 +280,14 @@ def delete_order(request, id):
     else:
         return redirect(adminlogin)
 
-
+def cancel_order(request, id):
+    if request.session.has_key('adminusername'):
+        b = Order.objects.get(id=id)
+        b.order_verify = False
+        b.save()
+        return redirect(manage_order)
+    else:
+        return redirect(adminlogin)
 
 # user side --------------------------------------------------------------------------------------------user side
 
@@ -462,6 +462,8 @@ def checkout(request):
         
         items = OrderItem.objects.filter(user=user)
         order = Order.objects.filter(user=user)
+        address = ShippingAddress.objects.filter(user=user)
+        
         
         total_price = 0
         for x in items  :
@@ -476,7 +478,7 @@ def checkout(request):
             client = razorpay.Client('Uci1HLeyYAs4mMBvKzysJL2X', auth='rzp_test_666QJpopWh4z27')
             payment = client.order.create({'amount':amount, 'currency':'INR', 'payment_capture':'1'})
 
-        return render(request, 'userhomepagenew/checkout.html', {'items': items, 'order': order, 'total_price':total_price, 'user':user})
+        return render(request, 'userhomepagenew/checkout.html', {'items': items, 'order': order, 'total_price':total_price, 'user':user, 'address':address})
     else:
         return render(request, 'userhomepagenew/index.html')
 
@@ -486,19 +488,28 @@ def user_payment(request):
     if request.user.is_authenticated:
         print("Authenticated User")
         if request.method == 'POST':
-            print("post")
             user = request.user
+        
             address = request.POST['address1']
             state = request.POST['state']
             city = request.POST['city']
             zipcode = request.POST['zipcode']
-            address = ShippingAddress.objects.create(user=user, address=address, state=state, city=city, zipcode=zipcode)
+            print(address)
 
-            cart = OrderItem.objects.filter(user=user)
-            date = datetime.datetime.now()
-            transaction_id = uuid.uuid4()
+            if ShippingAddress.objects.filter(address=address, state=state, city=city, zipcode=zipcode).exists():
+                cart = OrderItem.objects.filter(user=user)
+                date = datetime.datetime.now()
+                transaction_id = uuid.uuid4()
+                
+            else:
+                address = ShippingAddress.objects.create(user=user, address=address, state=state, city=city, zipcode=zipcode)
+                cart = OrderItem.objects.filter(user=user)
+                date = datetime.datetime.now()
+                transaction_id = uuid.uuid4()
+
+            address_instance = ShippingAddress.objects.get(address=address)
             for item in cart:
-                Order.objects.create(user=user, address=address, product=item.product,
+                Order.objects.create(user=user, address=address_instance, product=item.product,
                                      total_price=item.product.price,
                                      transaction_id=transaction_id, date_ordered=date, complete=True)
                 item.product.save()
@@ -507,9 +518,11 @@ def user_payment(request):
             return redirect(registereduserhomepage)
             # return render(request, 'home/payment.html')
         else:
+
             print("entered payment else conditioin")
             return render(request, 'userhomepagenew/checkout.html')
     else:
+        print("hhhhhhhhhhhhhhhhhhhhhhhhhh############")
         user = request.user
         cart = OrderItem.objects.filter(user=user)
         return render(request, 'userhomepagenew/checkout.html')

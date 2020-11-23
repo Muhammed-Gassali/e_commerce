@@ -268,6 +268,7 @@ table.table td i {
         font-size: 95%;
     }    
     </style>
+  
 <script>
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
@@ -374,6 +375,7 @@ table.table td i {
                         <th scope="col">Payment Status</th>
                         <th scope="col">Order Status</th>
                         <th scope="col">Date Ordered</th>
+                        <th scope="col">order verify</th>
                         <th scope="col">Actions</th>
                       </tr>
                     </thead>
@@ -392,12 +394,15 @@ table.table td i {
                         <td>Payment status</td>
                         <td>{{x.complete}}</td>
                         <td>{{x.date_ordered}}</td>
+                        <td>{{x.order_verify}}</td>
             
                         <!-- <td><img  style="width:70px;height:70px;" src="{{x.ImageURL}}"></td> -->
                         <td>
                             
 
                             <a href="{% url 'delete_order' x.id  %}" class="delete" title="Delete" data-toggle="tooltip"><i  onclick="return confirm('are you sure you wanat to delete')" class="material-icons">&#xE872;</i></a>
+                            <!-- <a href="{% url 'cancel_order' x.id %}" class="delete" title="Delete" data-toggle="tooltip"><i  onclick="return confirm('are you sure you wanat cancel this order')" class="material-icons">&#xE872;</i></a> -->
+                            <a href="{% url 'cancel_order' x.id %}" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('are you sure you wanat cancel this order')" class="material-icons"><h6>cancel order</h6></a>
                         </td>
                       </tr>
                      {% endfor %}

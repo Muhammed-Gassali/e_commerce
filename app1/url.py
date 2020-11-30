@@ -27,7 +27,10 @@ urlpatterns = [
     path('deletecategory/<int:id>', views.deletecategory, name='deletecategory'),
     path('manage-order/', views.manage_order, name="manage_order"),
     path('delete_order/<int:id>', views.delete_order, name="delete_order"),
-     path('cancel_order/<int:id>', views.cancel_order, name="cancel_order"),
+    path('cancel_order/<int:id>', views.cancel_order, name="cancel_order"),
+    path('report/', views.report, name="report"),
+     path('block_user/<int:id>', views.block_user, name="block_user"),
+
 
 
   
@@ -67,7 +70,10 @@ urlpatterns = [
     path('user_payment/', views.user_payment, name="user_payment"),
     path('user-order/', views.user_order, name="user_order"),
     path('profile/', views.profile, name="profile"),
-    path('edit_profile/', views.edit_profile, name="edit_profile")
+    path('edit_profile/', views.edit_profile, name="edit_profile"),
+    path('edit_profile_address/', views.edit_profile_address, name="edit_profile_address"),
+    path('check_phone/', views.check_phone, name="check_phone"),
+    path('confirm_otp', views.confirm_otp, name="confirm_otp"),
 
 
     

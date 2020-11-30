@@ -2,7 +2,7 @@
 {% load static %}
 <!DOCTYPE html>
 <head>
-<title>Admin Dashboard</title>
+<title>Order Management</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -20,22 +20,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link rel="stylesheet" href="{% static 'font.css' %}" type="text/css"/>
 <link href="{% static 'font-awesome.css' %}" rel="stylesheet"> 
 <link rel="stylesheet" href="{% static 'morris.css' %}" type="text/css"/>
-<!-- calendar -->
-<link rel="stylesheet" href="{% static 'monthly.css' %}">
-<!-- table pagination -->
 <link href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css"  rel='stylesheet' type='text/css'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel='stylesheet' type='text/css'>
+<!-- calendar -->
+<link rel="stylesheet" href="{% static 'monthly.css' %}">
+<!-- //calendar -->
+<!-- //font-awesome icons -->
 <script src="https://code.jquery.com/jquery-3.5.1.js"> </script>
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
-<!-- //font-awesome icons -->
 <!-- <script src="{% static 'js/jquery2.0.3.min.js' %}"></script> -->
 <script src="{% static 'js/raphael-min.js' %}"></script>
 <script src="{% static 'js/morris.js' %}"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<!-- icon for block user  -->
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <style>
+
 body {
     color: #566787;
     background: #f5f5f5;
@@ -269,6 +269,7 @@ table.table td i {
         font-size: 95%;
     }    
     </style>
+  
 <script>
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
@@ -279,7 +280,7 @@ table.table td i {
 <section id="container">
 <!--header start-->
 <header class="header fixed-top clearfix">
->
+
 
 <div class="top-nav clearfix">
     <!--search & user info start-->
@@ -313,26 +314,26 @@ table.table td i {
         <div class="leftside-navigation">
             <ul class="sidebar-menu" id="nav-accordion">
                 <li>
-                    <a  href="{% url 'admindashboard' %}">
+                    <a class="" href="{% url 'admindashboard' %}">
                         <i class="fa fa-dashboard"></i>
                         <span>Dashboard</span>
                     </a>
 				</li>
 				<li>
-                    <a href="{% url 'manage_order' %}">
+                    <a class="active" href="#">
                         <i class="fa fa-dashboard"></i>
                         <span>Orders</span>
                     </a>
                 </li>
                 
-                <li class="sub-menu">
-                    <a href="{% url 'productmanagement' %}">
+                <li  class="sub-menu">
+                    <a   href="{% url 'productmanagement' %}">
                         <i class="fa fa-book"></i>
                         <span>Product Management</span>
                     </a>
                 </li>
                 <li>
-                    <a class="active" href="">
+                    <a class="#" href="{% url 'usermanagemnet' %}">
                         <i class="fa fa-bullhorn"></i>
                         <span>User Management </span>
                     </a>
@@ -351,57 +352,99 @@ table.table td i {
 
 
 <br><br><br>
-<div class="w3-main" style="margin-left:300px">
-    <br>
-    <h1 style="text-align: center;">User Management</h1>
-   <a href="{% url 'adduser' %}">
-       <div class="container"><button type="button" class="btn btn-primary pull-right mr-5 pr-5" >Add User</button></a></div> 
-    <br><br><br>
-    <div class="row">
-        <!-- <div class=""> -->
-            <div class="col-lg-12">
-                <table class="table table-dark " style="margin-right:auto;margin-left:0px" id="dataTable">
-                    <thead>
-                      <tr>
-                        <th scope="col">User_Id</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">E-mail</th>
-                        <th scope="col">Account Status</th>
-                        <th scope="col">Phone NO</th>
-                        
-                        <th scope="col">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        {% for x in user %}
-                      <tr>
-                        <th scope="row">{{x.id}}</th>
-                        <td>{{x.first_name}}</td>
-                        <td>{{x.username}}</td>
-                        
-                        <td>{{x.email}}</td>
-                        {%if x.is_active == True %}
-                        <td>Active</td>
-                        {% elif x.is_active == False %}
-                        <td>Blocked</td>
-                        {% endif %}
-                        <td>{{x.last_name}}</td>
-                            <td>
-                            <a href="/edituser/{{x.id}}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a href="{% url 'deleteuser' x.id  %}" class="delete" title="Delete" data-toggle="tooltip"><i  onclick="return confirm('are you sure you wanat to delete')" class="material-icons">&#xE872;</i></a>
-                            <a href="{% url 'block_user' x.id  %}"  title="block" data-toggle="tooltip"><i  onclick="return confirm('are you sure you wanat to block this user')" class='fas fa-user-slash' style='font-size:17px;color:red'></i></a>
-                        </td>
-                      </tr>
-                     {% endfor %}
-                    </tbody>
-                  </table>
-            </div>
-        </div>
-    </div>
-
-    </div>
+<div class="row">
+<div class="container" >
+    <div  style="margin-right:auto;margin-left:126px">
+        <label for="OrderReport">Order Report:</label>
+    <form method="post">
+        {% csrf_token %}
+        <h3>From</h3>
+        <input type="date" id="start_date" name="start_date">
+        <h3>TO</h3>
+        <input type="date" id="end_date" name="end_date">
+        <button type="submit">SUbmit</button>
+        
+    </form>
     
+  
+    
+</div>
+<br><br>    
+ <!-- CHART  -->
+ <div class="col-xl-9 col-md-6 mb-6">
+	<canvas id="myChart"></canvas>
+</div>
+
+<script>
+
+	var orderdate = '{{order_dates}}'
+	
+
+	let myChart = document.getElementById('myChart').getContext('2d');
+
+	// Global Propeties
+	Chart.defaults.global.defaultFontFamily = 'Lato';
+	Chart.defaults.global.defaultFontSize = 19;
+	Chart.defaults.global.defaultFontColor = 'hotpink';
+
+
+	let massPopChart = new Chart(myChart, {
+		type: 'doughnut',
+		data: {
+			labels: ['order report'],
+			datasets: [{
+				label: 'Population',
+				data: [
+				orderdate,
+				],
+				label: 'Population',
+				backgroundColor: [
+					'green',
+					'black',
+					'blue',
+				],
+				borderWidth: 1,
+				borderColor: 'red',
+				hoverBorderWidth: 3,
+				hoverBorderColor: 'yellow'
+			}]
+		},
+		options: {
+			title: {
+				display: true,
+				text: 'Statistics Of Electro Shoppy',
+				fontSize: 20,
+				fontColor: 'black'
+			},
+			legend: {
+				display: true,
+				position: 'right',
+				labels: {
+					fontColor: 'black',
+				}
+			},
+			layout: {
+				padding: {
+					left: 50,
+					right: 0,
+					bottom: 0,
+					top: 0,
+				}
+			},
+			tooltips: {
+				mode: 'index',
+				axis: 'X'
+
+			}
+		}
+	});
+
+
+</script>
+   <!-- // CHART  -->
+</div>
+
+
 <!--sidebar end-->
 <!--main content start-->
 
@@ -422,41 +465,13 @@ table.table td i {
 <!-- calendar -->
 	
     <!-- //calendar -->
-    <script>
-        function myFunction() {
-          var input, filter, table, tr, td, i, txtValue;
-          input = document.getElementById("myInput");
-          filter = input.value.toUpperCase();
-          table = document.getElementById("myTable");
-          tr = table.getElementsByTagName("tr");
-          for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
-            if (td) {
-              txtValue = td.textContent || td.innerText;
-              if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-              } else {
-                tr[i].style.display = "none";
-              }
-            }       
-          }
-        }
-        // Get the modal
-    //var modal = document.getElementById('id01');
     
-    // When the user clicks anywhere outside of the modal, close it
-    //window.onclick = function(event) {
-      //if (event.target == modal) {
-        //modal.style.display = "none";
-      //}
-    //} -->
-    
-        </script>
         <script>
             $(document).ready(function(){
                 $('#dataTable').DataTable();
             }
             );
-        </script>  
+        </script>
+   
 </body>
 </html>

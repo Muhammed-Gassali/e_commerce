@@ -338,9 +338,63 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
               	</form>
               </div>
                
-              </div><!--/tab-pane-->
+			  </div><!--/tab-pane-->
+			  
           </div><!--/tab-content-->
-
+		  	<!-- addresses showing  -->
+			<br><br><br>	
+			<div class="row">
+				{% for x in address %}
+				<div class="col-sm-6 p-5">
+				  <div class="card">
+					<div class="card-body">
+						
+					  <p class="card-text">{{x.address}}<p>
+					  <p class="card-text">{{x.state}}<p>
+					  <p class="card-text">{{x.city}}<p></p>
+					  <p class="card-text">{{x.zipcode}}<p></p>
+					  <!-- <button  class="btn btn-primary" onclick="addAddress('{{x.address}}','{{x.state}}','{{x.city}}','{{x.zipcode}}','{{x.id}}')">Edit This Address</button> -->
+					  <button  class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalRegisterForm" onclick="addAddress('{{x.address}}','{{x.state}}','{{x.city}}','{{x.zipcode}}','{{x.id}}')">Edit This Address</button>
+					</div>
+			
+					<br>
+				  </div>
+				</div>
+				{% endfor %}
+			  </div>
+			  <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+		<form method="post" action="{% url 'edit_profile_address' %}">
+		{% csrf_token %}
+		<input type="text" style="display:none" id="idi" name="id" class="form-control validate"><br>
+		Address<input type="text" id="ida" name="address" class="form-control validate"><br>
+		State <input type="text" id="ids" name="state" class="form-control validate"><br>
+		City <input type="text" id="idc" name="city" class="form-control validate"><br>
+		zipcode <input type="text" id="idz" name="zipcode" class="form-control validate"><br>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+       <a href="#">
+		    <button class="btn btn-deep-orange">Save</button></a>
+	  </div>
+	  
+	</form>
+    </div>
+  </div>
+</div>
+			  <br><br>
+			  <h3></h3>
+			<!-- //addresses showing  -->
         </div><!--/col-9-->
     </div><!--/row-->
 
@@ -459,15 +513,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- popup modal (for signin & signup)-->
 	<script src="{% static 'userhomepagenew/js/jquery.magnific-popup.js' %}"></script>
 	
-	<!-- Large modal -->
-	<!-- <script>
-		$('#').modal('show');
-	</script> -->
-	<!-- //popup modal (for signin & signup)-->
-
-	<!-- cart-js -->
-
-	<!-- //cart-js -->
+	 <!-- getting address from card to form  -->
+	 <script>
+		function addAddress(address,state,city,zipcode,id) {
+			document.getElementById("ida").value = address	
+			document.getElementById("ids").value = state
+			document.getElementById("idc").value = city
+			document.getElementById("idz").value = zipcode
+			document.getElementById("idi").value = id
+			
+		}
+		
+	  </script>
+		<!-- //getting address from card to form  -->
+		
 
 	<!-- password-script -->
 	<script>

@@ -35,6 +35,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+
 </head>
 <body>
 <section id="container">
@@ -103,6 +105,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <i class="fa fa-bullhorn"></i>
                         <span>Category Management </span>
                     </a>
+				</li>
+				<li>
+                    <a href="{% url 'report' %}">
+                        <i class="fa fa-bullhorn"></i>
+                        <span>Report </span>
+                    </a>
                 </li>
                </ul>          
 		</div>
@@ -151,7 +159,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div class="col-md-8 market-update-left">
 					<h4>Users</h4>
-						<h3>1,250</h3>
+						<h3>{{users}}</h3>
 						<p>Other hand, we denounce</p>
 					</div>
 				  <div class="clearfix"> </div>
@@ -164,7 +172,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div class="col-md-8 market-update-left">
 						<h4>Products</h4>
-						<h3>1,500</h3>
+						<h3>{{products}}</h3>
 						<p>Other hand, we denounce</p>
 					</div>
 				  <div class="clearfix"> </div>
@@ -177,7 +185,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div class="col-md-8 market-update-left">
 						<h4>Orders</h4>
-						<h3>1,500</h3>
+						<h3>{{order}}</h3>
 						<p>Other hand, we denounce</p>
 					</div>
 				  <div class="clearfix"> </div>
@@ -188,8 +196,82 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		
 		
 </section>
- <!-- footer -->
-		  
+   <!-- CHART  -->
+   <div class="col-xl-9 col-md-6 mb-6">
+	<canvas id="myChart"></canvas>
+</div>
+
+<script>
+
+	var totalusers = '{{users}}'
+	var totalproducts = '{{product}}'
+	var totalorders = '{{order}}'
+
+	let myChart = document.getElementById('myChart').getContext('2d');
+
+	// Global Propeties
+	Chart.defaults.global.defaultFontFamily = 'Lato';
+	Chart.defaults.global.defaultFontSize = 19;
+	Chart.defaults.global.defaultFontColor = 'hotpink';
+
+
+	let massPopChart = new Chart(myChart, {
+		type: 'doughnut',
+		data: {
+			labels: ['Total Users', 'Total Orders', 'Total Products'],
+			datasets: [{
+				label: 'Population',
+				data: [
+				totalusers,
+				totalproducts,
+				totalorders,
+				],
+				label: 'Population',
+				backgroundColor: [
+					'green',
+					'black',
+					'blue',
+				],
+				borderWidth: 1,
+				borderColor: 'red',
+				hoverBorderWidth: 3,
+				hoverBorderColor: 'yellow'
+			}]
+		},
+		options: {
+			title: {
+				display: true,
+				text: 'Statistics Of Electro Shoppy',
+				fontSize: 20,
+				fontColor: 'black'
+			},
+			legend: {
+				display: true,
+				position: 'right',
+				labels: {
+					fontColor: 'black',
+				}
+			},
+			layout: {
+				padding: {
+					left: 50,
+					right: 0,
+					bottom: 0,
+					top: 0,
+				}
+			},
+			tooltips: {
+				mode: 'index',
+				axis: 'X'
+
+			}
+		}
+	});
+
+
+</script>
+   <!-- // CHART  -->
+		
   <!-- / footer -->
 </section>
 <!--main content end-->

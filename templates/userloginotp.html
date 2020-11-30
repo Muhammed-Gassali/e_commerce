@@ -3,7 +3,7 @@
 <html lang="zxx">
 
 <head>
-	<title>User Login</title>
+	<title>OTP Verification</title>
 	<!-- Meta tag Keywords -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8" />
@@ -45,42 +45,52 @@
 		<span>I</span>n
 		<span>F</span>orm</h1> -->
 	<!-- //title -->
-	<!-- content -->
+    <!-- content -->
+    {%  if otp == 1 %}
 	<div class="sub-main-w3 " >
+		<div>
 		<form method="post">
 			{% csrf_token %}
 			<div class="form-style-agile">
-				<label>
-					Username
-					<!-- 	 -->
-				</label>
-				<input placeholder="Username" name="username" type="text" >
-			</div>
-			<div class="form-style-agile">
-				<label>
-					Password
-					<!-- <i class="fas fa-unlock-alt"></i> -->
-				</label>
-				<input placeholder="Password" name="password" type="password" >
-			</div>
-			
-			<input type="submit" value="Log In">
-		
+                <input placeholder="Phone Number" name="phone" type="text" >
+                
+            </div>
+			<input type="submit" value="Submit">
 			{% for message in messages %}
 			<p style="color: white;">{{message}}</p>
 			{% endfor %}
 			<div>
 				<br><br>
-			<p style="color: white;"  class="signup">Are You Not Registered ?<a href="{% url 'register' %}" style="color:salmon;"  class="signuplink">Click here</a></p>
+			<p style="color: white;"  class="signup">Login with Password ?<a href="{% url 'userlogin' %}" style="color:salmon;"  class="signuplink">Click here</a></p>
 		</div>
-		<div>
-		<p style="color: white;"  class="signup">Login with OTP ?<a href="{% url 'check_phone' %}" style="color:salmon;"  class="signuplink">Click here</a></p>
-	</div>	
 		</form>
 			
-			
+			</div>
 
-	</div>
+    </div>
+    {% elif otp == 0 %}
+    <div class="sub-main-w3 " >
+		<div>
+		<form method="post" action="{% url 'confirm_otp' %}">
+			{% csrf_token %}
+			<div class="form-style-agile">
+                
+                <input placeholder="Enter OTP" name="otp" type="text" >
+            </div>
+			<input type="submit" value="Log In">
+			{% for message in messages %}
+			<p style="color: white;">{{message}}</p>
+			{% endfor %}
+			<div>
+				<br><br>
+			<p style="color: white;"  class="signup">Login with Password ?<a href="{% url 'userlogin' %}" style="color:salmon;"  class="signuplink">Click here</a></p>
+		</div>
+		</form>
+			
+			</div>
+
+    </div>
+    {% endif %}
 			<!-- Modal -->
  
 

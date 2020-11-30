@@ -453,7 +453,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 						<div class="checkout-right-basket">
-							<input type="submit" name="" id="" value="place order">
+							<input type="submit" name="" id="place_order" value="place order">
 							<!-- <button id="form2"  onclick="return confirm('are you sure you wanat to delete')" type="button" >Place Order -->
 							<span class="fa fa-hand-o-right" aria-hidden="true"></span>
 							<!-- <a href="">placeorder</a> -->
@@ -462,7 +462,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 					</form>
 
-
+					<script>
+						
+						
+					</script>
 <!------------------------Payment mode -------------------->
 
 
@@ -491,10 +494,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						  {% csrf_token %}
 						<script
 							src="https://checkout.razorpay.com/v1/checkout.js"
-							var total = {{total_price}}
 							data-key="rzp_test_666QJpopWh4z27" 
-							data-amount="total" 
-							data-currency="INR"
+							data-amount="{{total_price}}" 
+							data-currency="USD"
 							data-order_id="{{payment.id}}"
 							data-buttontext="Pay with Razorpay"
 							data-name="Acme Corp"
@@ -511,6 +513,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					  <!-- Include the PayPal JavaScript SDK -->
 					  <script src="https://www.paypal.com/sdk/js?client-id=ARNmiM2HkiUGZ8FxDYJifT2uay8CGAvA8dwDmgWmXUHwl1WG9y9q5LIgBXuS9CmhUrvFVuT9FtVPMexo&currency=USD"></script>
 				
+					  <!-- getting address from card to form  -->
 					  <script>
 						function addAddress(address,state,city,zipcode,id) {
 							document.getElementById("ida").value = address
@@ -526,20 +529,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						}
 						
 					  </script>
-
-					<script>
-						function placeOrder(){
-							let id = document.getElementById("idi").value;
-							console.log(id)
-							location.href = 'user_payment' +id;
-							
-							
-						}
-					</script>
+						<!-- //getting address from card to form  -->
+						
 					  <script>
 						  // Render the PayPal button into #paypal-button-container
+						  var orderStatus = 'paypal'
 						  paypal.Buttons({
-				  
+							
 							  // Set up the transaction
 							  createOrder: function(data, actions) {
 								  return actions.order.create({
@@ -554,11 +550,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							  // Finalize the transaction
 							  onApprove: function(data, actions) {
 								  return actions.order.capture().then(function(details) {
+									$("#place_order").click()
 									  // Show a success message to the buyer
 									  alert('Transaction completed by ' + details.payer.name.given_name + '!');
 								  });
-							  }
-				  
+							  },
+							  
+							  
+							
+						
 				  
 						  }).render('#paypal-button-container');
 					  </script>
@@ -697,22 +697,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- //jquery -->
 	<!-- popup modal (for signin & signup)-->
 	<script src="{% static 'userhomepagenew/js/jquery.magnific-popup.js' %}"></script>
-	<script>
-		$(document).ready(function () {
-			$('.popup-with-zoom-anim').magnificPopup({
-				type: 'inline',
-				fixedContentPos: false,
-				fixedBgPos: true,
-				overflowY: 'auto',
-				closeBtnInside: true,
-				preloader: false,
-				midClick: true,
-				removalDelay: 300,
-				mainClass: 'my-mfp-zoom-in'
-			});
 
-		});
-	</script>
+
 	<!-- Large modal -->
 	<!-- <script>
 		$('#').modal('show');
@@ -720,27 +706,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- //popup modal (for signin & signup)-->
 
 	<!-- cart-js -->
-	<script src="{% static 'userhomepagenew/js/minicart.js' %}"></script>
-	<script>
-		paypalm.minicartk.render(); //use only unique class names other than paypal1.minicart1.Also Replace same class name in css and minicart.min.js
 
-		paypalm.minicartk.cart.on('checkout', function (evt) {
-			var items = this.items(),
-				len = items.length,
-				total = 0,
-				i;
-
-			// Count the number of each item in the cart
-			for (i = 0; i < len; i++) {
-				total += items[i].get('quantity');
-			}
-
-			if (total < 3) {
-				alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
-				evt.preventDefault();
-			}
-		});
-	</script>
 	<!-- //cart-js -->
 
 	<!--quantity-->

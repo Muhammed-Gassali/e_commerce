@@ -41,7 +41,7 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True) 
     address = models.ForeignKey(ShippingAddress, on_delete=models.CASCADE, blank=True, null=True)
     product = models.ForeignKey(products, on_delete=models.CASCADE, blank=True, null=True)
-    date_ordered = models.DateTimeField(auto_now_add=True)
+    date_ordered = models.DateField(auto_now_add=True)
     complete = models.BooleanField(default=False, null=True, blank=False)
     transaction_id = models.CharField(max_length=200, null=True)
     total_price = models.IntegerField(null=True, blank=True)
@@ -78,7 +78,7 @@ class OrderItem(models.Model):
     product = models.ForeignKey(products, on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
-    date_added = models.DateTimeField(auto_now_add=True)
+    date_added = models.DateField(auto_now_add=True)
     total_price = models.IntegerField(null=True, blank=True)
 
 

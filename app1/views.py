@@ -80,7 +80,8 @@ def addproduct(request):
     if request.session.has_key('adminusername'):
         if request.method == 'POST':
             productname = request.POST['product_name']
-            cat = category.objects.get(category_name=request.POST['category'])
+            # cat = category.objects.get(category_name=request.POST['category'])
+            cat = category.objects.get(id=request.POST['category'])
             price = request.POST['price']
             image = request.FILES.get('image')
             desc = request.POST['desc']
@@ -99,7 +100,8 @@ def addproduct(request):
             return redirect(productmanagement)
         else:
             # return HttpResponse("keriyill")
-            return render(request, 'addproductdetials.html')
+            value = category.objects.all()
+            return render(request, 'addproductdetials.html', {'value':value})
     else:
         return redirect(adminlogin)
 
@@ -250,6 +252,7 @@ def adduser(request):
                 messages.info(request, 'password does not match')
                 return render(request, 'useradd.html')
         else:
+              
             return render(request, 'useradd.html')
     else:
         return redirect(adminlogin)
@@ -512,20 +515,31 @@ def registereduserhomepage(request):
     if request.user.is_authenticated:
         value= products.objects.all()
         user = request.user
+        hai = 0
         print("entered")
         print(user)
-        return render(request, 'userhomepagenew/registereduser.html',{'value':value, 'user':user})
+        return render(request, 'userhomepagenew/registereduser.html',{'value':value, 'user':user, 'hai':hai})
     else:
         return redirect(userlogin)
 
 def contact(request):
-    return render(request, 'userhomepagenew/contact.html')
+    if request.user.is_authenticated:
+        value = 0
+        return render(request, 'userhomepagenew/contact.html', {'value':value})
+    else:
+        value = 1 
+        return render(request, 'userhomepagenew/contact.html', {'value':value})
 
 def quickview(request, id):
-    print(id)
-    product = products.objects.filter(id=id).first()
-    return render(request, 'userhomepagenew/single.html', {'product': product})
-
+    if request.user.is_authenticated:
+        print(id)
+        value = 0
+        product = products.objects.filter(id=id).first()
+        return render(request, 'userhomepagenew/single.html', {'product': product, 'value':value})
+    else:
+        value = 1
+        product = products.objects.filter(id=id).first()
+        return render(request, 'userhomepagenew/single.html', {'product': product, 'value':value})
 
 
 def cart(request):
@@ -671,28 +685,13 @@ def user_order(request):
 def profile(request):
     if request.user.is_authenticated:
         user = request.user
+        address = ShippingAddress.objects.filter(user=user)
         if ProfilePicture.objects.filter(user=user).exists():
             img=ProfilePicture.objects.get(user=user)
-        print(img.ImageURL)
-        address = ShippingAddress.objects.filter(user=user)
-
-        # editing address 
-        # if request.method=="POST":
-        #     save_address = request.POST['address']
-        #     save_state = request.POST['state']
-        #     save_city = request.POST['city']
-        #     save_zipcode = request.POST['zipcode']
-        #     print(save_address)
-        #     if ShippingAddress.objects.filter(address=save_address, state=save_state, city=save_city, zipcode=save_zipcode):
-        #         return render(request, 'userhomepagenew/userprofile.html', {'value':user, 'img':img, 'address':address})
-        #     else:
-        #         value = ShippingAddress.objects.get(user=user)
-        #         value.address = save_address
-        #         value.state = save_state
-        #         value.city = save_city
-        #         value.zipcode = save_zipcode
-        #         value.save()
-        return render(request, 'userhomepagenew/userprofile.html', {'value':user, 'img':img, 'address':address})
+            return render(request, 'userhomepagenew/userprofile.html', {'value':user, 'img':img, 'address':address})
+        return render(request, 'userhomepagenew/userprofile.html', {'value':user, 'address':address})
+        
+        
     else:
         return redirect(userhomepage)
 

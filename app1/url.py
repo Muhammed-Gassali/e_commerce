@@ -37,25 +37,7 @@ urlpatterns = [
 
     #user home pages ------------------------------------------------------------------------------------------------------------------------------
     
-    # path('registereduser/', views.registereduser, name="registereduser"),
-    # path('', views.userhomepage, name="userhomepage"),
-    # path('quickview/', views.quickview, name="quickview"),
-    # path('contact/', views.contact, name="contact"),
-    # path('productof/', views.product, name="productof"),
-    # path('checkout/', views.checkout, name="checkout"),
-    # path('cart/', views.cart, name="cart"),
 
-    #cart 
-    # path('updateitem/' ,views.updateitem, name="updateitem"),
-    # path('cart/', views.cart, name="cart"),
-    # path('checkout/', views.checkout, name="checkout"),
-    # path('processOrder/', views.processOrder, name="processOrder"),
-    
-   
-    
-
-    # copied items
-    # path('cart/', views.cart, name="cart"),
 
     path('', views.userhomepage, name="userhomepage"),
     path('registereduserhomepage', views.registereduserhomepage, name="registereduserhomepage"),

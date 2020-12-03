@@ -1,4 +1,4 @@
-  
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="zxx">
@@ -53,7 +53,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <body>
 	<!-- top-header -->
 	<div class="header-most-top">
-		<p>Grocery Offer Zone Top Deals & Discounts</p>
+		<p> Offer Zone Top Deals & Discounts</p>
 	</div>
 	<!-- //top-header -->
 	<!-- header-bot-->
@@ -78,11 +78,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<span class="fa fa-phone" aria-hidden="true"></span> 854 729 5554
 					</li>
 					<li>
-						<a href="#" data-toggle="modal" data-target="#myModal1">
+						<!-- <a href="#" data-toggle="modal" data-target="#myModal1"> -->
+							<a href="{% url 'profile' %}">
 							<span class="fa fa-unlock-alt" aria-hidden="true"></span> Sign In </a>
 					</li>
 					<li>
-						<a href="#" data-toggle="modal" data-target="#myModal2">
+						<!-- <a href="#" data-toggle="modal" data-target="#myModal2"> -->
+							<a href="{% url 'profile' %}">
 							<span class="fa fa-pencil-square-o" aria-hidden="true"></span> Sign Up </a>
 					</li>
 					<li>
@@ -210,7 +212,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- //signup Model -->
 	<!-- //header-bot -->
 	<!-- navigation -->
-
+		
 	<!-- //navigation -->
 	<!-- banner-2 -->
 	<div class="page-head_agile_info_w3l">
@@ -439,7 +441,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<a href="{% url 'contact' %}">Contact Us</a>
 							</li>
 							<li>
-								<a href="{% url 'registereduserhomepage' %}">Help</a>
+								<a href="{% url 'registereduserhomepage' %}">Home</a>
 							</li>
 							
 						</ul>
@@ -448,15 +450,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<h3>Get in Touch</h3>
 						<ul>
 							<li>
-								<i class="fa fa-map-marker"></i> 123 Sebastian, USA.</li>
+								<i class="fa fa-map-marker"></i> Electro Shoppy, USA.</li>
 							<li>
 								<i class="fa fa-mobile"></i> 333 222 3333 </li>
 							<li>
 								<i class="fa fa-phone"></i> +222 11 4444 </li>
-							<li>
-								<i class="fa fa-envelope-o"></i>
-								<a href="mailto:example@mail.com"> mail@example.com</a>
-							</li>
+								<li>
+									<i class="fa fa-envelope-o"></i>
+									<a href="mailto:example@mail.com"> electroshoppy@gmail.com</a>
+								</li>
 						</ul>
 					</div>
 				</div>

@@ -353,7 +353,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div class="men-pro-item simpleCart_shelfItem">
 								<div class="men-thumb-item">
 									<!-- <img src="{% static 'userhomepagenew/images/m1.jpg' %}" alt=""> -->
-									<img  style="width:70px;height:70px; "src="{{x.ImageURL}}" alt="">
+									<img  style="width:150px;height:150px; "src="{{x.ImageURL}}" alt="">
 									<div class="men-cart-pro">
 										<div class="inner-men-cart-pro">
 											<a href="{% url 'quickview' x.id %}" class="link-product-add-cart">Quick View</a>
@@ -389,9 +389,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<!-- second section (nuts special) -->
 					<div class="product-sec1 product-sec2">
 						<div class="col-xs-7 effect-bg">
-							<h3 class="">Pure Energy</h3>
-							<h6>Enjoy our all healthy Products</h6>
-							<p>Get Extra 10% Off</p>
+							
 						</div>
 						
 						<div class="col-xs-5 bg-right-nut">
@@ -408,7 +406,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="col-md-4 product-men">
 							<div class="men-pro-item simpleCart_shelfItem">
 								<div class="men-thumb-item">
-									<img  style="width:70px;height:70px; "src="{{x.ImageURL}}" alt="">
+									<img  style="width:150px;height:150px; "src="{{x.ImageURL}}" alt="">
 									<div class="men-cart-pro">
 										<div class="inner-men-cart-pro">
 											<a href="{% url 'quickview' x.id %}" class="link-product-add-cart">Quick View</a>
@@ -450,7 +448,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="col-md-4 product-men">
 							<div class="men-pro-item simpleCart_shelfItem">
 								<div class="men-thumb-item">
-									<img  style="width:70px;height:70px; "src="{{x.ImageURL}}" alt="">
+									<img  style="width:150px;height:150px; "src="{{x.ImageURL}}" alt="">
 									<div class="men-cart-pro">
 										<div class="inner-men-cart-pro">
 											<a href="{% url 'quickview' x.id %}" class="link-product-add-cart">Quick View</a>
@@ -489,20 +487,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 	<!-- //top products -->
 
-	<!-- //special offers -->
-	<!-- newsletter -->
 	
-	<!-- //newsletter -->
 	<!-- footer -->
 	<footer>
 		<div class="container">
 			<!-- footer first section -->
-			<p class="footer-main">
-				<span>"Grocery Shoppy"</span> Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-				magni dolores eos qui ratione voluptatem sequi nesciunt.Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-				accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
-				beatae vitae dicta sunt explicabo.</p>
-			<!-- //footer first section -->
+			
 			<!-- footer second section -->
 				
 			<!-- //footer second section -->
@@ -514,47 +504,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<h3>Categories</h3>
 						<ul>
 							<li>
-								<a href="product.html">Grocery</a>
+								<a href="#lap">Laptop</a>
 							</li>
 							<li>
-								<a href="product.html">Fruits</a>
+								<a href="#mobile">Mobile Phone</a>
 							</li>
 							<li>
-								<a href="product.html">Soft Drinks</a>
-							</li>
-							<li>
-								<a href="product2.html">Dishwashers</a>
-							</li>
-							<li>
-								<a href="product.html">Biscuits & Cookies</a>
-							</li>
-							<li>
-								<a href="product2.html">Baby Diapers</a>
+								<a href="#tv">TV</a>
 							</li>
 						</ul>
 					</div>
-					<div class="col-xs-6 footer-grids agile-secomk">
-						<ul>
-							<li>
-								<a href="product.html">Snacks & Beverages</a>
-							</li>
-							<li>
-								<a href="product.html">Bread & Bakery</a>
-							</li>
-							<li>
-								<a href="product.html">Sweets</a>
-							</li>
-							<li>
-								<a href="product.html">Chocolates & Biscuits</a>
-							</li>
-							<li>
-								<a href="product2.html">Personal Care</a>
-							</li>
-							<li>
-								<a href="product.html">Dried Fruits & Nuts</a>
-							</li>
-						</ul>
-					</div>
+					
 					<div class="clearfix"></div>
 				</div>
 				<!-- //footer categories -->
@@ -563,39 +523,34 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="col-xs-6 footer-grids">
 						<h3>Quick Links</h3>
 						<ul>
+							{% if hai == 0 %}
 							<li>
-								<a href="about.html">About Us</a>
+								<a href="{% url 'registereduserhomepage' %}">Home</a>
 							</li>
+							{% else %}
 							<li>
-								<a href="contact.html">Contact Us</a>
+								<a href="{% url 'userhomepage' %}">Home</a>
 							</li>
+							{% endif %}
 							<li>
-								<a href="help.html">Help</a>
+								<a href="{% url 'contact' %}">Contact Us</a>
 							</li>
-							<li>
-								<a href="faqs.html">Faqs</a>
-							</li>
-							<li>
-								<a href="terms.html">Terms of use</a>
-							</li>
-							<li>
-								<a href="privacy.html">Privacy Policy</a>
-							</li>
+							
 						</ul>
 					</div>
 					<div class="col-xs-6 footer-grids">
 						<h3>Get in Touch</h3>
 						<ul>
 							<li>
-								<i class="fa fa-map-marker"></i> 123 Sebastian, USA.</li>
+								<i class="fa fa-map-marker"></i> Electro Shoppy, USA.</li>
 							<li>
 								<i class="fa fa-mobile"></i> 333 222 3333 </li>
 							<li>
 								<i class="fa fa-phone"></i> +222 11 4444 </li>
-							<li>
-								<i class="fa fa-envelope-o"></i>
-								<a href="mailto:example@mail.com"> mail@example.com</a>
-							</li>
+								<li>
+									<i class="fa fa-envelope-o"></i>
+									<a href="mailto:example@mail.com"> electroshoppy@gmail.com</a>
+								</li>
 						</ul>
 					</div>
 				</div>
@@ -637,7 +592,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- copyright -->
 	<div class="copy-right">
 		<div class="container">
-			<p>© 2017 Grocery Shoppy. All rights reserved | Design by 
+			<p>© 2020 Electro Shoppy. All rights reserved | Design by 
 				
 			</p>
 		</div>

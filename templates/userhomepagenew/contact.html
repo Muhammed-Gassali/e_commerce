@@ -4,7 +4,7 @@
 <html lang="zxx">
 
 <head>
-	<title>Grocery Shoppy an Ecommerce Category Bootstrap Responsive Web Template | Single :: w3layouts</title>
+	<title>contact page</title>
 	<!--/tags -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -37,7 +37,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <body>
 	<!-- top-header -->
 	<div class="header-most-top">
-		<p>Grocery Offer Zone Top Deals & Discounts</p>
+		<p>Offer Zone Top Deals & Discounts</p>
 	</div>
 	<!-- //top-header -->
 	<!-- header-bot-->
@@ -47,7 +47,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col-md-4 logo_agile">
 				<h1>
 					<a href="#">
-						<span>G</span>rocery
+						<span>E</span>lectro
 						<span>S</span>hoppy
 						<img src="{% static 'userhomepagenew/images/logo2.png' %}" alt=" ">
 					</a>
@@ -82,17 +82,32 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 				<!-- //search -->
 				<!-- cart details -->
+				{% if value == 1 %}
 				<div class="top_nav_right">
 					<div class="wthreecartaits wthreecartaits2 cart cart box_1">
-						<form action="#" method="post" class="last">
-							<input type="hidden" name="cmd" value="_cart">
-							<input type="hidden" name="display" value="1">
+						<a href="#" data-toggle="modal" data-target="#myModal1">
+							<!-- <input type="hidden" name="cmd" value="_cart">
+							<input type="hidden" name="display" value="1"> -->
+							<button class="w3view-cart" type="submit" name="submit" value="">
+								<i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+							</button></a>
+						</form>
+					</div>
+				</div>
+				{% elif value == 0 %}
+				<div class="top_nav_right">
+					<div class="wthreecartaits wthreecartaits2 cart cart box_1">
+						<form action="{% url 'cart' %}" method="post" class="last">
+							{% csrf_token %}
+							<!-- <input type="hidden" name="cmd" value="_cart">
+							<input type="hidden" name="display" value="1"> -->
 							<button class="w3view-cart" type="submit" name="submit" value="">
 								<i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
 							</button>
 						</form>
 					</div>
 				</div>
+				{% endif %}
 				<!-- //cart details -->
 				<div class="clearfix"></div>
 			</div>
@@ -191,22 +206,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="ban-top">
 		<div class="container">
 			<div class="agileits-navi_search">
-				<form action="#" method="post">
-					<select id="agileinfo-nav_search" name="agileinfo_search" required="">
-						<option value="">All Categories</option>
-						<option value="Kitchen">Kitchen</option>
-						<option value="Household">Household</option>
-						<option value="Snacks &amp; Beverages">Snacks & Beverages</option>
-						<option value="Personal Care">Personal Care</option>
-						<option value="Gift Hampers">Gift Hampers</option>
-						<option value="Fruits &amp; Vegetables">Fruits & Vegetables</option>
-						<option value="Baby Care">Baby Care</option>
-						<option value="Soft Drinks &amp; Juices">Soft Drinks & Juices</option>
-						<option value="Frozen Food">Frozen Food</option>
-						<option value="Bread &amp; Bakery">Bread & Bakery</option>
-						<option value="Sweets">Sweets</option>
-					</select>
-				</form>
+
+				
+					
 			</div>
 			<div class="top_nav_left">
 				<nav class="navbar navbar-default">
@@ -224,16 +226,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<!-- Collect the nav links, forms, and other content for toggling -->
 						<div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav menu__list">
+								{% if value == 1  %}
 								<li>
-									<a class="nav-stylehead" href="index.html">Home
+									<a class="nav-stylehead" href="{% url 'userhomepage' %}">Home
 										<span class="sr-only">(current)</span>
 									</a>
 								</li>
-							
+								{% elif value == 0 %}
+								<li>
+									<a class="nav-stylehead" href="{% url 'userhomepage' %}">Home
+										<span class="sr-only">(current)</span>
+									</a>
+								</li>
+								{% endif %}
 								
 								
 								<li class="active">
-									<a class="" href="contact.html">Contact</a>
+									<a class="" href="#">Contact</a>
 								</li>
 							</ul>
 						</div>
@@ -287,14 +296,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="col-xs-7 contact-text w3-agileits">
 							<h4>GET IN TOUCH :</h4>
 							<p>
-								<i class="fa fa-map-marker"></i> 123 Sebastian, NY 10002, USA.</p>
+								<i class="fa fa-map-marker"></i> Electro Shoppy, USA.</li>
 							<p>
 								<i class="fa fa-phone"></i> Telephone : 333 222 3333</p>
 							<p>
 								<i class="fa fa-fax"></i> FAX : +1 888 888 4444</p>
 							<p>
 								<i class="fa fa-envelope-o"></i> Email :
-								<a href="mailto:example@mail.com">mail@example.com</a>
+								<a href="mailto:example@mail.com"> electroshoppy@gmail.com</a>
 							</p>
 						</div>
 						<div class="col-xs-5 contact-agile">
@@ -317,11 +326,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<footer>
 		<div class="container">
 			<!-- footer first section -->
-			<p class="footer-main">
-				<span>"Grocery Shoppy"</span> Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-				magni dolores eos qui ratione voluptatem sequi nesciunt.Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-				accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
-				beatae vitae dicta sunt explicabo.</p>
+		
 			<!-- //footer first section -->
 			<!-- footer second section -->
 			
@@ -334,47 +339,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<h3>Categories</h3>
 						<ul>
 							<li>
-								<a href="product.html">Grocery</a>
+								<a href="#lap">Laptop</a>
 							</li>
 							<li>
-								<a href="product.html">Fruits</a>
+								<a href="#mobile">Mobile Phone</a>
 							</li>
 							<li>
-								<a href="product.html">Soft Drinks</a>
-							</li>
-							<li>
-								<a href="product2.html">Dishwashers</a>
-							</li>
-							<li>
-								<a href="product.html">Biscuits & Cookies</a>
-							</li>
-							<li>
-								<a href="product2.html">Baby Diapers</a>
+								<a href="#tv">TV</a>
 							</li>
 						</ul>
 					</div>
-					<div class="col-xs-6 footer-grids agile-secomk">
-						<ul>
-							<li>
-								<a href="product.html">Snacks & Beverages</a>
-							</li>
-							<li>
-								<a href="product.html">Bread & Bakery</a>
-							</li>
-							<li>
-								<a href="product.html">Sweets</a>
-							</li>
-							<li>
-								<a href="product.html">Chocolates & Biscuits</a>
-							</li>
-							<li>
-								<a href="product2.html">Personal Care</a>
-							</li>
-							<li>
-								<a href="product.html">Dried Fruits & Nuts</a>
-							</li>
-						</ul>
-					</div>
+					
 					<div class="clearfix"></div>
 				</div>
 				<!-- //footer categories -->
@@ -384,37 +359,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<h3>Quick Links</h3>
 						<ul>
 							<li>
-								<a href="about.html">About Us</a>
+								<a href="{% url 'userhomepage' %}">Home</a>
 							</li>
 							<li>
-								<a href="contact.html">Contact Us</a>
+								<a href="{% url 'contact' %}">Contact Us</a>
 							</li>
-							<li>
-								<a href="help.html">Help</a>
-							</li>
-							<li>
-								<a href="faqs.html">Faqs</a>
-							</li>
-							<li>
-								<a href="terms.html">Terms of use</a>
-							</li>
-							<li>
-								<a href="privacy.html">Privacy Policy</a>
-							</li>
+							
 						</ul>
 					</div>
 					<div class="col-xs-6 footer-grids">
 						<h3>Get in Touch</h3>
 						<ul>
 							<li>
-								<i class="fa fa-map-marker"></i> 123 Sebastian, USA.</li>
+								<i class="fa fa-map-marker"></i> Electro Shoppy, USA.</li>
 							<li>
 								<i class="fa fa-mobile"></i> 333 222 3333 </li>
 							<li>
 								<i class="fa fa-phone"></i> +222 11 4444 </li>
 							<li>
 								<i class="fa fa-envelope-o"></i>
-								<a href="mailto:example@mail.com"> mail@example.com</a>
+								<a href="mailto:example@mail.com"> electroshoppy@gmail.com</a>
 							</li>
 						</ul>
 					</div>
@@ -453,7 +417,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- copyright -->
 	<div class="copy-right">
 		<div class="container">
-			<p>© 2017 Grocery Shoppy. All rights reserved | Design by
+			<p>© 2020 Electro Shoppy. All rights reserved | Design by
 			
 			</p>
 		</div>

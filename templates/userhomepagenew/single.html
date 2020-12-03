@@ -62,12 +62,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<span class="fa fa-phone" aria-hidden="true"></span> 854 729 5554
 					</li>
 					<li>
+						{% if value == 0 %}
+						<a href="#">
+							<span class="fa fa-unlock-alt" aria-hidden="true"></span> Sign In </a>
+						{% else %}
 						<a href="#" data-toggle="modal" data-target="#myModal1">
 							<span class="fa fa-unlock-alt" aria-hidden="true"></span> Sign In </a>
+						{% endif %}
 					</li>
 					<li>
+						{% if value == 0 %}
+						<a href="#">
+							<span class="fa fa-pencil-square-o" aria-hidden="true"></span> Sign Up </a>
+						{% else %}
 						<a href="#" data-toggle="modal" data-target="#myModal2">
 							<span class="fa fa-pencil-square-o" aria-hidden="true"></span> Sign Up </a>
+						{% endif %}
 					</li>
 				</ul>
 				<!-- //header lists -->
@@ -82,6 +92,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 				<!-- //search -->
 				<!-- cart details -->
+				{% if value == 0 %}
 				<div class="top_nav_right">
 					<div class="wthreecartaits wthreecartaits2 cart cart box_1">
 						<form action="{% url 'cart' %}" method="post" class="last">
@@ -94,6 +105,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</form>
 					</div>
 				</div>
+				{% else %}
+				<div class="top_nav_right">
+					<div class="wthreecartaits wthreecartaits2 cart cart box_1">
+						<a href="#" data-toggle="modal" data-target="#myModal1">
+							<!-- <input type="hidden" name="cmd" value="_cart">
+							<input type="hidden" name="display" value="1"> -->
+							<button class="w3view-cart" type="submit" name="submit" value="">
+								<i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+							</button></a>
+						</form>
+					</div>
+				</div>
+				{% endif %}
 				<!-- //cart details -->
 				<div class="clearfix"></div>
 			</div>
@@ -200,9 +224,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav menu__list">
 								<li>
+									{% if value == 0 %}
 									<a class="nav-stylehead" href="{% url 'registereduserhomepage' %}">Home
 										<span class="sr-only">(current)</span>
 									</a>
+									{% elif value == 1 %}
+									<a class="nav-stylehead" href="{% url 'userhomepage' %}">Home
+										<span class="sr-only">(current)</span>
+									</a>
+									{% endif %}
 								</li>
 								
 								
@@ -210,8 +240,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<a class="" href="{% url 'contact' %}">Contact</a>
 								</li>
 								<li class="">
+									{% if value == 0 %}
 									<a class="nav-stylehead" href="{% url 'userlogout' %}">Logout</a>
-									
+									{% endif %}
 								</li>
 							</ul>
 						</div>
@@ -233,7 +264,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="banner-bootom-w3-agileits">
 		<div class="container">
 			<!-- tittle heading -->
-			<h3 class="tittle-w3l">Single Page
+			<h3 class="tittle-w3l">Quick View
 				<span class="heading-style">
 					<i></i>
 					<i></i>
@@ -279,8 +310,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</span>
 				</div>
 				<p>
-					<span class="item_price">₹{{product.price}}</span>
-					<del>$1300.00</del>
+					<span class="item_price">${{product.price}}</span>
+					<!-- <del>$1300.00</del> -->
 					<label>Free delivery</label>
 				</p>
 				<div class="single-infoagile">
@@ -307,14 +338,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</ul>
 					
 				</div>
-				<br><br><br>		
+				<br><br><br>	
+					
 				<div class="occasion-cart">
 					<div class="snipcart-details hvr-outline-out">
-						
+						{% if value == 0 %}
+						<fieldset>
+							<a href="{% url 'add_cart' product.id %}"><input type="submit" name="submit" value="Add to cart" class="button" /></a>
+							</fieldset>
+						{% else %}
+						<form action="" method="post">
+							{% csrf_token %}
 							<fieldset>
-								<a href="{% url 'add_cart' product.id %}"><input type="submit" name="submit" value="Add to cart" class="button" /></a>
-							
+								<a href="#" data-toggle="modal" data-target="#myModal1"><input type="submit" name="submit" value="Add to cart" class="button" /></a>
+									
+							</fieldset>
 						</form>
+						{% endif %}
 					</div>
 
 				</div>
@@ -366,12 +406,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="col-xs-6 footer-grids">
 						<h3>Quick Links</h3>
 						<ul>
-							
+							{% if value == 1  %}
+								<li>
+									<a class="nav-stylehead" href="{% url 'userhomepage' %}">Home
+										<span class="sr-only">(current)</span>
+									</a>
+								</li>
+								{% elif value == 0 %}
+								<li>
+									<a class="nav-stylehead" href="{% url 'userhomepage' %}">Home
+										<span class="sr-only">(current)</span>
+									</a>
+								</li>
+								{% endif %}
 							<li>
 								<a href="{% url 'contact' %}">Contact Us</a>
-							</li>
-							<li>
-								<a href="{% url 'registereduserhomepage' %}">Help</a>
 							</li>
 							
 						</ul>
@@ -380,14 +429,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<h3>Get in Touch</h3>
 						<ul>
 							<li>
-								<i class="fa fa-map-marker"></i> 123 Sebastian, USA.</li>
+								<i class="fa fa-map-marker"></i> Electro Shoppy, USA.</li>
 							<li>
 								<i class="fa fa-mobile"></i> 333 222 3333 </li>
 							<li>
 								<i class="fa fa-phone"></i> +222 11 4444 </li>
 							<li>
 								<i class="fa fa-envelope-o"></i>
-								<a href="mailto:example@mail.com"> mail@example.com</a>
+								<a href="mailto:example@mail.com"> electroshoppy@gmail.com</a>
 							</li>
 						</ul>
 					</div>

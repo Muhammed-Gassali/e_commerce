@@ -52,6 +52,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	const csrftoken = getCookie('csrftoken');
 	
 	  </script>
+	  <!--profile icone-->
+	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+	<!--//profile icone-->
 </head>
 
 <body>
@@ -67,7 +70,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col-md-4 logo_agile">
 				<h1>
 					<a href="#">
-						<span>G</span>rocery
+						<span>E</span>lectro
 						<span>S</span>hoppy
 						<img src="{% static 'userhomepagenew/images/logo2.png' %}" alt=" ">
 					</a>
@@ -82,12 +85,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<span class="fa fa-phone" aria-hidden="true"></span> 854 729 5554
 					</li>
 					<li>
-						<a href="#" data-toggle="modal" data-target="#myModal1">
+						<!-- <a href="#" data-toggle="modal" data-target="#myModal1"> -->
+							<a href="#">
 							<span class="fa fa-unlock-alt" aria-hidden="true"></span> Sign In </a>
 					</li>
 					<li>
-						<a href="#" data-toggle="modal" data-target="#myModal2">
+						<!-- <a href="#" data-toggle="modal" data-target="#myModal2"> -->
+							<a href="#">
 							<span class="fa fa-pencil-square-o" aria-hidden="true"></span> Sign Up </a>
+					</li>
+					<li>
+						<!-- <a href="#" data-toggle="modal" data-target="#myModal2"> -->
+							<a href="{% url 'profile' %}">
+							<span class="fas fa-user-circle" aria-hidden="true"></span> Pofile	 </a>
 					</li>
 				</ul>
 				<!-- //header lists -->
@@ -104,9 +114,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<!-- cart details -->
 				<div class="top_nav_right">
 					<div class="wthreecartaits wthreecartaits2 cart cart box_1">
-						<form action="#" method="post" class="last">
-							<input type="hidden" name="cmd" value="_cart">
-							<input type="hidden" name="display" value="1">
+						<form action="{% url 'cart' %}" method="post" class="last">
+							{% csrf_token %}
+							<!-- <input type="hidden" name="cmd" value="_cart">
+							<input type="hidden" name="display" value="1"> -->
 							<button class="w3view-cart" type="submit" name="submit" value="">
 								<i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
 							</button>
@@ -210,18 +221,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- navigation -->
 	<div class="ban-top">
 		<div class="container">
-			<div class="agileits-navi_search">
-				<div class="dropdown">
-					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					  categories
-					</button>
-					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					  <a  class="dropdown-item" href="#lap">Laptop</a>
-					  <br>
-					  <a class="dropdown-item" href="#tv">TV</a><br>
-					  <a class="dropdown-item" href="#mobile">Mobile Phone</a><br>
-					</div>
-				  </div>			</div>
+			
 			<div class="top_nav_left">
 				<nav class="navbar navbar-default">
 					<div class="container-fluid">
@@ -349,47 +349,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<h3>Categories</h3>
 						<ul>
 							<li>
-								<a href="product.html">Grocery</a>
+								<a href="#lap">Laptop</a>
 							</li>
 							<li>
-								<a href="product.html">Fruits</a>
+								<a href="#mobile">Mobile Phone</a>
 							</li>
 							<li>
-								<a href="product.html">Soft Drinks</a>
-							</li>
-							<li>
-								<a href="product2.html">Dishwashers</a>
-							</li>
-							<li>
-								<a href="product.html">Biscuits & Cookies</a>
-							</li>
-							<li>
-								<a href="product2.html">Baby Diapers</a>
+								<a href="#tv">TV</a>
 							</li>
 						</ul>
 					</div>
-					<div class="col-xs-6 footer-grids agile-secomk">
-						<ul>
-							<li>
-								<a href="product.html">Snacks & Beverages</a>
-							</li>
-							<li>
-								<a href="product.html">Bread & Bakery</a>
-							</li>
-							<li>
-								<a href="product.html">Sweets</a>
-							</li>
-							<li>
-								<a href="product.html">Chocolates & Biscuits</a>
-							</li>
-							<li>
-								<a href="product2.html">Personal Care</a>
-							</li>
-							<li>
-								<a href="product.html">Dried Fruits & Nuts</a>
-							</li>
-						</ul>
-					</div>
+					
 					<div class="clearfix"></div>
 				</div>
 				<!-- //footer categories -->
@@ -399,37 +369,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<h3>Quick Links</h3>
 						<ul>
 							<li>
-								<a href="about.html">About Us</a>
+								<a href="{% url 'registereduserhomepage' %}">Home</a>
 							</li>
 							<li>
-								<a href="contact.html">Contact Us</a>
+								<a href="{% url 'contact' %}">Contact Us</a>
 							</li>
-							<li>
-								<a href="help.html">Help</a>
-							</li>
-							<li>
-								<a href="faqs.html">Faqs</a>
-							</li>
-							<li>
-								<a href="terms.html">Terms of use</a>
-							</li>
-							<li>
-								<a href="privacy.html">Privacy Policy</a>
-							</li>
+							
 						</ul>
 					</div>
 					<div class="col-xs-6 footer-grids">
 						<h3>Get in Touch</h3>
 						<ul>
 							<li>
-								<i class="fa fa-map-marker"></i> 123 Sebastian, USA.</li>
+								<i class="fa fa-map-marker"></i> Electro Shoppy, USA.</li>
 							<li>
 								<i class="fa fa-mobile"></i> 333 222 3333 </li>
 							<li>
 								<i class="fa fa-phone"></i> +222 11 4444 </li>
 							<li>
 								<i class="fa fa-envelope-o"></i>
-								<a href="mailto:example@mail.com"> mail@example.com</a>
+								<a href="mailto:example@mail.com"> electroshoppy@gmail.com</a>
 							</li>
 						</ul>
 					</div>
@@ -472,7 +431,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- copyright -->
 	<div class="copy-right">
 		<div class="container">
-			<p>© 2017 Grocery Shoppy. All rights reserved | Design by
+			<p>© 2020 Electro Shoppy. All rights reserved | Design by 
 				
 			</p>
 		</div>

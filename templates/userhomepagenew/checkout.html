@@ -35,6 +35,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<link rel="stylesheet" type="text/css" href="{% static 'userhomepagenew/css/jquery-ui1.css' %}">
 	<!-- fonts -->
 	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
+	<style>
+		
+	</style>
 </head>
 
 <body>
@@ -60,24 +63,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col-md-8 header">
 				<!-- header lists -->
 				<ul>
+				
 					<li>
-						<a class="play-icon popup-with-zoom-anim" href="#small-dialog1">
-							<span class="fa fa-map-marker" aria-hidden="true"></span> Shop Locator</a>
+						<span class="fa fa-phone" aria-hidden="true"></span> 854 729 5554
 					</li>
 					<li>
-						<a href="#" data-toggle="modal" data-target="#myModal1">
-							<span class="fa fa-truck" aria-hidden="true"></span>Track Order</a>
-					</li>
-					<li>
-						<span class="fa fa-phone" aria-hidden="true"></span> 001 234 5678
-					</li>
-					<li>
-						<a href="#" data-toggle="modal" data-target="#myModal1">
+						<!-- <a href="#" data-toggle="modal" data-target="#myModal1"> -->
+							<a href="{% url 'userlogin' %}">
 							<span class="fa fa-unlock-alt" aria-hidden="true"></span> Sign In </a>
 					</li>
 					<li>
-						<a href="#" data-toggle="modal" data-target="#myModal2">
+						<!-- <a href="#" data-toggle="modal" data-target="#myModal2"> -->
+							<a href="{% url 'register' %}">
 							<span class="fa fa-pencil-square-o" aria-hidden="true"></span> Sign Up </a>
+					</li>
+					<li>
+						<!-- <a href="#" data-toggle="modal" data-target="#myModal2"> -->
+							<a href="{% url 'profile' %}">
+							<span class="fas fa-user-circle" aria-hidden="true"></span> Pofile	 </a>
 					</li>
 				</ul>
 				<!-- //header lists -->
@@ -218,103 +221,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav menu__list">
 								<li>
-									<a class="nav-stylehead" href="index.html">Home
+									<a class="nav-stylehead" href="{% url 'registereduserhomepage' %}">Home
 										<span class="sr-only">(current)</span>
 									</a>
 								</li>
 								<li class="">
-									<a class="nav-stylehead" href="about.html">About Us</a>
+									<a class="nav-stylehead" href="{% url 'contact' %}">Contact Us</a>
 								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle nav-stylehead" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Kitchen
-										<span class="caret"></span>
-									</a>
-									<ul class="dropdown-menu multi-column columns-3">
-										<div class="agile_inner_drop_nav_info">
-											<div class="col-sm-4 multi-gd-img">
-												
-											</div>
-										
-								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle nav-stylehead" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Household
-										<span class="caret"></span>
-									</a>
-									<ul class="dropdown-menu multi-column columns-3">
-										<div class="agile_inner_drop_nav_info">
-											<div class="col-sm-6 multi-gd-img">
-												<ul class="multi-column-dropdown">
-													<li>
-														<a href="product2.html">Kitchen & Dining</a>
-													</li>
-													<li>
-														<a href="product2.html">Detergents</a>
-													</li>
-													<li>
-														<a href="product2.html">Utensil Cleaners</a>
-													</li>
-													<li>
-														<a href="product2.html">Floor & Other Cleaners</a>
-													</li>
-													<li>
-														<a href="product2.html">Disposables, Garbage Bag</a>
-													</li>
-													<li>
-														<a href="product2.html">Repellents & Fresheners</a>
-													</li>
-													<li>
-														<a href="product2.html"> Dishwash</a>
-													</li>
-												</ul>
-											</div>
-											<div class="col-sm-6 multi-gd-img">
-												<ul class="multi-column-dropdown">
-													<li>
-														<a href="product2.html">Pet Care</a>
-													</li>
-													<li>
-														<a href="product2.html">Cleaning Accessories</a>
-													</li>
-													<li>
-														<a href="product2.html">Pooja Needs</a>
-													</li>
-													<li>
-														<a href="product2.html">Crackers</a>
-													</li>
-													<li>
-														<a href="product2.html">Festive Decoratives</a>
-													</li>
-													<li>
-														<a href="product2.html">Plasticware</a>
-													</li>
-													<li>
-														<a href="product2.html">Home Care</a>
-													</li>
-												</ul>
-											</div>
-											<div class="clearfix"></div>
-										</div>
-									</ul>
-								</li>
-								<li class="">
-									<a class="nav-stylehead" href="faqs.html">Faqs</a>
-								</li>
-								<li class="dropdown">
-									<a class="nav-stylehead dropdown-toggle" href="#" data-toggle="dropdown">Pages
-										<b class="caret"></b>
-									</a>
-									<ul class="dropdown-menu agile_short_dropdown">
-										<li>
-											<a href="icons.html">Web Icons</a>
-										</li>
-										<li>
-											<a href="typography.html">Typography</a>
-										</li>
-									</ul>
-								</li>
-								<li>
-									<a class="" href="contact.html">Contact</a>
-								</li>
+								
+								
+								
 							</ul>
 						</div>
 					</div>
@@ -324,9 +240,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 	<!-- //navigation -->
 	<!-- banner-2 -->
-	<div class="page-head_agile_info_w3l">
 
-	</div>
 	<!-- //banner-2 -->
 	<!-- page -->
 	<div class="services-breadcrumb">
@@ -453,7 +367,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 						<div class="checkout-right-basket">
-							<input type="submit" name="" id="place_order" value="place order">
+							<input type="submit" name=""  onclick="createOrder('COD')" id="place_order" value="place order">
 							<!-- <button id="form2"  onclick="return confirm('are you sure you wanat to delete')" type="button" >Place Order -->
 							<span class="fa fa-hand-o-right" aria-hidden="true"></span>
 							<!-- <a href="">placeorder</a> -->
@@ -488,15 +402,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</label>
 					  </div>
 					  <div id="paypal-button-container"></div>
-
+					  <form>
+					<button type="button" class="btn btn-success" onclick="razorpay()">razorpay</button>
+				</form>
 					  <!-- razorpay  -->
-					  <form action="{% url 'checkout' %}" method="POST">
+					  <!-- <form action="{% url 'checkout' %}" method="POST">
 						  {% csrf_token %}
 						<script
 							src="https://checkout.razorpay.com/v1/checkout.js"
 							data-key="rzp_test_666QJpopWh4z27" 
 							data-amount="{{total_price}}" 
-							data-currency="USD"
+							data-currency="INR"
 							data-order_id="{{order_id}}"
 							data-buttontext="Pay with Razorpay"
 							data-name="Acme Corp"
@@ -507,8 +423,102 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							data-theme.color="#F37254"
 						></script>
 						<input type="hidden" custom="Hidden Element" name="hidden">
-						</form>
+						</form> -->
 						
+
+						<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+						<script>
+							function razorpay(){
+
+							
+							var total = '{{total_price|floatformat:2}}'
+							var payment_status = 'razorpay'
+							var options = {
+								"key": "rzp_test_666QJpopWh4z27", // Enter the Key ID generated from the Dashboard
+								"amount": total, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+								"currency": "INR",
+								"name": "Electro Shoppy",
+								"description": "Test Transaction",
+								"image": "https://example.com/your_logo",
+								"order_id": "{{order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+								"handler": function (response) 
+										{
+									
+									alert("successssssssssssssssssssssssssssssssssssssssssssss")
+									successRazorpay()
+									//submitFormData(payment)
+								},
+								"prefill": {
+									"name": "Gaurav Kumar",
+									"email": "gaurav.kumar@example.com",
+									"contact": "9999999999"
+								},
+								"notes": {
+									"address": "Razorpay Corporate Office"
+								},
+								"theme": {
+									"color": "#F37254"
+								}
+							};
+							var rzp1 = new Razorpay(options);
+						
+								rzp1.open();
+								
+						}
+						function successRazorpay(){
+							var userData = {
+								csrfmiddlewaretoken: '{{ csrf_token }}',
+								address1:$('#ida').val(),
+								state:$('#ids').val(),
+								city:$('#idc').val(),
+								zipcode:$('#idz').val(),
+								paymentMethod:"Razorpay"
+
+							}
+							$.ajax({
+								url : '/user_payment/',
+								type: "POST",
+								data : userData,
+								dataType : "json",
+								success: function( data  ){
+								  if (data == 'success'){
+					  
+									window.location.replace('/registereduserhomepage')
+								  }
+					  
+								}
+							});
+							
+						}
+						function createOrder(paymentMethod){
+							console.log(paymentMethod)
+							var orderData = {
+								csrfmiddlewaretoken: '{{ csrf_token }}',
+								address1:$('#ida').val(),
+								state:$('#ids').val(),
+								city:$('#idc').val(),
+								zipcode:$('#idz').val(),
+								paymentMethod:paymentMethod
+							}
+							$.ajax({
+								url : '/user_payment/',
+								type: "POST",
+								data : orderData,
+								dataType : "json",
+								success: function( data  ){
+								  if (data == 'success'){
+					  
+									window.location.replace('/registereduserhomepage')
+								  }
+					  
+								}
+							});
+						}
+						
+						</script>
+			
+
+
 
 					  <!-- Include the PayPal JavaScript SDK -->
 					  <script src="https://www.paypal.com/sdk/js?client-id=ARNmiM2HkiUGZ8FxDYJifT2uay8CGAvA8dwDmgWmXUHwl1WG9y9q5LIgBXuS9CmhUrvFVuT9FtVPMexo&currency=USD"></script>
@@ -550,7 +560,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							  // Finalize the transaction
 							  onApprove: function(data, actions) {
 								  return actions.order.capture().then(function(details) {
-									$("#place_order").click()
+									createOrder("paypal")
 									  // Show a success message to the buyer
 									  alert('Transaction completed by ' + details.payer.name.given_name + '!');
 								  });

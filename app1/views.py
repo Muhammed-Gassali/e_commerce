@@ -7,6 +7,7 @@ from .models import products,category,Order,OrderItem,ShippingAddress,ProfilePic
 from django.http import JsonResponse
 import json
 import datetime
+from django.db.models import Sum
 import uuid
 
 # importing image cropping
@@ -26,14 +27,14 @@ from django.core.files import File
 # Create your views here.
 
 # function used to admin login
-def adminlogin(request):
-    if request.session.has_key('adminusername'):
-        return redirect(admindashboard)
+def admin_login(request):
+    if request.session.has_key('admin_username'):
+        return redirect(admin_dashboard)
     if request.method == "POST":
-        adminusername = request.POST['username']
-        adminpassword = request.POST['password']
-        if adminusername == "admin" and adminpassword == "5554":
-            request.session['adminusername']= adminusername
+        admin_username = request.POST['username']
+        admin_password = request.POST['password']
+        if admin_username == "admin" and admin_password == "5554":
+            request.session['admin_username']= admin_username
             return  render(request, 'admindashboard.html')
             # return HttpResponse("hai")
         else:
@@ -41,45 +42,45 @@ def adminlogin(request):
              return render(request, 'adminlogin.html')
     else:
         return render(request, 'adminlogin.html')
-    # else:
-    #      return render(request, 'adminlogin.html')
+
+
 
 # function for admin logout
-def adminlogout(request):
-    if request.session.has_key('adminusername'):
+def admin_logout(request):
+    if request.session.has_key('admin_username'):
         request.session.flush()
-        return redirect(adminlogin)
+        return redirect(admin_login)
     else:
         return render(request, 'admindashboard.html')
 
 
 
 # function used to load admin dashboard
-def admindashboard(request):
-    if request.session.has_key('adminusername'):
+def admin_dashboard(request):
+    if request.session.has_key('admin_username'):
         users = User.objects.all().count()
         order = Order.objects.all().count()
         product = products.objects.all().count()
         context ={'users':users,'order':order, 'products':product}
         return render(request, 'admindashboard.html',context)
     else:
-        return redirect(adminlogin)
+        return redirect(admin_login)
 
 # function used to manage product management
-def productmanagement(request):
-    if request.session.has_key('adminusername'):
+def product_management(request):
+    if request.session.has_key('admin_username'):
         product = products.objects.all().order_by('id')
         return render(request, 'adminhomepage.html', {'product':product})
     else:
-        return redirect(adminlogin)
+        return redirect(admin_login)
 
     
 
 # function used to add products by admin
-def addproduct(request):
-    if request.session.has_key('adminusername'):
+def add_product(request):
+    if request.session.has_key('admin_username'):
         if request.method == 'POST':
-            productname = request.POST['product_name']
+            product_name = request.POST['product_name']
             # cat = category.objects.get(category_name=request.POST['category'])
             cat = category.objects.get(id=request.POST['category'])
             price = request.POST['price']
@@ -95,52 +96,51 @@ def addproduct(request):
 
             data = ContentFile(base64.b64decode(imgstr), name=productname + '.' + ext)
 
-            product = products.objects.create(product_name=productname, category=cat, price=price, description=desc, image=data, quantity=quantity)
+            product = products.objects.create(product_name=product_name, category=cat, price=price, description=desc, image=data, quantity=quantity)
             product.save()
-            return redirect(productmanagement)
+            return redirect(product_management)
         else:
-            # return HttpResponse("keriyill")
             value = category.objects.all()
             return render(request, 'addproductdetials.html', {'value':value})
     else:
-        return redirect(adminlogin)
+        return redirect(admin_login)
 
 
 # function used to delete product by admin
 def delete(request,id):
-    if request.session.has_key('adminusername'):
-        b = products.objects.get(id = id)
+    if request.session.has_key('admin_username'):
+        value = products.objects.get(id = id)
         print(id)
-        b.delete()
+        value.delete()
         messages.info(request, 'deleted successfully')
-        return redirect(productmanagement)
+        return redirect(product_management)
     else:
-        return redirect(adminlogin)
+        return redirect(admin_login)
 
 
 # function used to load edit  product page 
 def edit(request, id):
-    if request.session.has_key('adminusername'):
-        value=products.objects.get(id=id)
+    if request.session.has_key('admin_username'):
+        value = products.objects.get(id=id)
         return render(request, 'editproduct.html', {'values':value})
     else:
-        return redirect(adminlogin)
+        return redirect(admin_login)
  
 
 
 
 # function used to update product by admin
 def update(request,id):
-    if request.session.has_key('adminusername'):
+    if request.session.has_key('admin_username'):
         if request.method == 'POST':
-            productname = request.POST['product_name']
+            product = request.POST['product_name']
             category = request.POST['category']
             price = request.POST['price']
             # image = request.FILES.get('image')
             desc = request.POST['desc']
             quantity = request.POST['quantity']
             value = products.objects.get(id=id)
-            value.product_name = productname
+            value.product_name = product
             value.category.category_name = category
             value.price = price
             
@@ -156,98 +156,98 @@ def update(request,id):
 
             value.quantity = quantity
             value.save()
-            return redirect(productmanagement)
+            return redirect(product_management)
         else:
             return render(request, 'editproduct.html')
     else:
-         return redirect(adminlogin)
+         return redirect(admin_login)
 
 
 # function used to load user management page
-def usermanagemnet(request):
-    if request.session.has_key('adminusername'):
+def user_managemnet(request):
+    if request.session.has_key('admin_username'):
         user = User.objects.all().order_by('id')
         return render(request, 'usermanagemnet.html', {'user':user})
     else:
-        return redirect(adminlogin)
+        return redirect(admin_login)
     
 #function for delete user by admin
-def deleteuser(request, id):
-    if request.session.has_key('adminusername'):
-        b = User.objects.get(id = id)
-        b.delete()
+def delete_user(request, id):
+    if request.session.has_key('admin_username'):
+        value = User.objects.get(id = id)
+        value.delete()
         messages.info(request, 'deleted successfully')
-        return redirect(usermanagemnet)
+        return redirect(user_managemnet)
     else:
-        return redirect(adminlogin)
+        return redirect(admin_login)
 
 
 def block_user(request, id):
-    if request.session.has_key('adminusername'):
+    if request.session.has_key('admin_username'):
         user = User.objects.get(id=id)
         user.is_active = False
         user.save()
-        return redirect(usermanagemnet)
+        return redirect(user_managemnet)
     else:
-        return redirect(adminlogin)
+        return redirect(admin_login)
 
 
 
 # function for lod  edit user page
-def edituser(request, id):
-    if request.session.has_key('adminusername'):
-        value=User.objects.get(id=id)
+def edit_user(request, id):
+    if request.session.has_key('admin_username'):
+        value = User.objects.get(id=id)
         return render(request, 'edituser.html', {'values':value})
     else:
-        return redirect(adminlogin)
+        return redirect(admin_login)
 
 
 # function for update user by admin
-def updateuser(request, id):
-    if request.session.has_key('adminusername'):
+def update_user(request, id):
+    if request.session.has_key('admin_username'):
         if request.method == 'POST':
             name = request.POST['name']
-            username = request.POST['username']
+            user_name = request.POST['username']
             email = request.POST['email']
             mobile = request.POST['mobile']
             value = User.objects.get(id=id)
             value.first_name = name
-            value.username = username
+            value.username = user_name
             value.email = email
             value.last_name = mobile
             value.save()
-            return redirect(usermanagemnet)
+            return redirect(user_managemnet)
         else:
             return render(request, 'edituser.html')
     else:
-         return redirect(adminlogin)
+         return redirect(admin_login)
 
 
 
 
 # function for adding user by admin
 
-def adduser(request):
-    if request.session.has_key('adminusername'):
+def add_user(request):
+    if request.session.has_key('admin_username'):
         if request.method == 'POST':
             name = request.POST['name']
-            username = request.POST['username']
+            user_name = request.POST['username']
             email = request.POST['email']
             mobile = request.POST['mobile']
             password = request.POST['password1']
             password2 = request.POST['password2']
             if password == password2:
-                if User.objects.filter(username=username).exists() or User.objects.filter(email=email).exists():
-                    if User.objects.filter(username=username).exists():
+                if User.objects.filter(username=user_name).exists() or User.objects.filter(email=email).exists():
+                    if User.objects.filter(username=user_name).exists():
                         messages.info(request, 'username already exists')
                         return render(request, 'useradd.html')
                     elif User.objects.filter(email=email).exists():
                         messages.info(request, 'email already exists')
                         return render(request, 'useradd.html')
                 else:
-                    user = User.objects.create_user(first_name=name, username=username, email=email, password=password, last_name=mobile)
+                    user = User.objects.create_user(first_name=name, username=user_name, email=email, password=password, last_name=mobile)
                     user.save()
-                    return redirect('usermanagemnet')
+                    return redirect('user_managemnet')
             else:
                 messages.info(request, 'password does not match')
                 return render(request, 'useradd.html')
@@ -255,102 +255,132 @@ def adduser(request):
               
             return render(request, 'useradd.html')
     else:
-        return redirect(adminlogin)
+        return redirect(admin_login)
 
 
 #category management by admin
-def categorymanagement(request):
+def category_management(request):
     value = category.objects.all().order_by('id')
     return render(request, 'categorymanagement.html', {'value':value})
 
 
 #add catogory
-def addcategory(request):
+def add_category(request):
     if request.method == 'POST':
         category_name = request.POST['category_name']
         value = category.objects.create(category_name=category_name)
         value.save()
-        return redirect(categorymanagement)
+        return redirect(category_management)
     else:
         return render(request, 'addcategory.html')
 
 #function for delete category
-def deletecategory(request, id):
+def delete_category(request, id):
         b = category.objects.get(id=id)
         b.delete()
         messages.info(request, 'deleted successfully')
-        return redirect(categorymanagement)
+        return redirect(category_management)
 
 
 def manage_order(request):
-    if request.session.has_key('adminusername'):
+    if request.session.has_key('admin_username'):
         table = Order.objects.all()
         return render(request, 'orderadminview.html', {'table_data': table})
     else:
-        return redirect(adminlogin)
+        return redirect(admin_login)
 
 
 def delete_order(request, id):
-    if request.session.has_key('adminusername'):
+    if request.session.has_key('admin_username'):
         b = Order.objects.get(id = id)
         b.delete()
         messages.info(request, 'deleted successfully')
         return redirect(manage_order)
     else:
-        return redirect(adminlogin)
+        return redirect(admin_login)
 
 def cancel_order(request, id):
-    if request.session.has_key('adminusername'):
+    if request.session.has_key('admin_username'):
         b = Order.objects.get(id=id)
-        b.order_verify = False
-        b.save()
+        if b.order_verify == True:
+            b.order_verify = False
+            b.save()
+        else:
+            b.order_verify = True
+            b.save()
         return redirect(manage_order)
     else:
-        return redirect(adminlogin)
+        return redirect(admin_login)
 
 def report(request):
-    if request.session.has_key('adminusername'):
+    
+    if request.session.has_key('admin_username'):
         if request.method == "POST":
             print("entered ***************************************")
             start = request.POST['start_date']
             end = request.POST['end_date']
-            order_dates = Order.objects.filter(date_ordered__range=[start,end]).count()
-            context = {'order_dates':order_dates}
-            print(start)
+            orders = Order.objects.filter(date_ordered__range=[start,end])
+            dict = {}           
+            for order in orders:
+                if not order.transaction_id in dict.keys():
+                    dict[order.transaction_id]=order
+                    dict[order.transaction_id].orderprice = order.total_price
+                    dict[order.transaction_id].total_products = 1
+                else:
+                    dict[order.transaction_id].orderprice += order.total_price
+                    dict[order.transaction_id].total_products += 1
+            order_success = {}
+            order_cancelled = {}
+            for x,y in dict.items():
+                if y.order_verify == True:
+                    if not y.date_ordered in order_success.keys():
+                        order_success[y.date_ordered] = {"order_count" : 1, "price": y.orderprice, "total_products":y.total_products}
+                    else:
+                        order_success[y.date_ordered]["order_count"] += 1
+                        order_success[y.date_ordered]["price"] += y.orderprice
+                        order_success[y.date_ordered]["total_products"] += y.total_products
+                else:
+                    if not y.date_ordered in order_cancelled.keys():
+                        order_cancelled[y.date_ordered] = {"order_count" : 1, "price": y.orderprice, "total_products":y.total_products}
+                    else:
+                        order_cancelled[y.date_ordered]["order_count"] += 1
+                        order_cancelled[y.date_ordered]["price"] += y.orderprice
+                        order_cancelled[y.date_ordered]["total_products"] += y.total_products
+
+            context = {'order_success': order_success, 'order_cancelled': order_cancelled}
             return render(request, 'adminreport.html', context)
         else:
             return render(request, 'adminreport.html')
     else:
-        return redirect(adminlogin)
-
+        return redirect(admin_login)
 
 
 # user side --------------------------------------------------------------------------------------------user side
 
 
 # fuction used for loading userlogin
-def userlogin(request):
+def user_login(request):
     if request.user.is_authenticated:
         return redirect('registereduserhomepage')
     if request.method == "POST":
-        username = request.POST['username']
+        user_name = request.POST['username']
         password = request.POST['password']
 
             
-        user = User.objects.filter(username=username).first()
+        user = User.objects.filter(username=user_name).first()
 
         if user is not None and check_password(password,user.password):
             if user.is_active == False:
                 messages.info(request, 'user is blocked')
-                return redirect('userlogin')
+                return redirect('user_login')
             else:
                 auth.login(request, user)
                 value = products.objects.all()
                 return redirect('registereduserhomepage')
         else:   
-            value={"username":username}
+            value={"username":user_name}
             messages.info(request, 'invalid credentials')
-            return redirect('userlogin')
+            return redirect('user_login')
     else:
         return render(request, 'userloginpage.html')
     
@@ -366,7 +396,6 @@ def check_phone(request):
         print(phone_number)
         if User.objects.filter(last_name=phone_number).exists():
             otp = 0
-            print("success")
             # adding otp creation 
             phone_number = str(91) + phone_number
             url = "https://d7networks.com/api/verifier/send"
@@ -384,15 +413,12 @@ def check_phone(request):
             }
 
             response = requests.request("POST", url, headers=headers, data = payload, files = files)
-            print(payload)
             print(response.text.encode('utf8'))
 
             data=response.text.encode('utf8')
             datadict=json.loads(data)
-            print('datadict:',datadict)
 
             id=datadict['otp_id']
-            print('id:',id)
             request.session['id'] = id
 
              # //otp creation 
@@ -446,11 +472,6 @@ def confirm_otp(request):
 
         else:
             return HttpResponse("oops")
-
-
-
-
-
 
 
 
@@ -598,29 +619,13 @@ def checkout(request):
         total_price = 0
         for x in items  :
             total_price = total_price + x.get_total
-
         # razorpay integrate
         if request.method == "POST":
-            amount = total_price*100*70
-            print("enterd ######################################")
-            print(amount)
+
+            order_amount = total_price*100
             order_currency = 'INR'
-            client = razorpay.Client('Uci1HLeyYAs4mMBvKzysJL2X', auth='rzp_test_666QJpopWh4z27')
-            order_amount = float(total_price)
-            order_amount *= 100
-            order_currency = 'USD'
-            order_reciept = 'order_rcptid_11'
-            notes = {'shipping address ':'noormahal''kerala'}
-            response = client.order.create(dict(amount=order_amount, currency=order_currency, reciept=order_reciept, notes=notes, payment_capture='0'))
-            # payment = client.order.create({'amount':amount, 'currency':'INR', 'payment_capture':'1'})
-            # order_id = response['id']
-            # order_status = response['status']
-            # if order_status=='created':
-            #     context['product_id'] = product
-            #     context['order_id'] = order_id
-            #     return render(request, 'userhomepagenew/checkout.html', {'items': items, 'order': order, 'total_price':total_price, 'user':user, 'address':address}, context)
-
-
+            client = razorpay.Client(auth = ('rzp_test_666QJpopWh4z27', 'Uci1HLeyYAs4mMBvKzysJL2X'))
+            payment = client.order.create({'amount':order_amount, 'currency':order_currency, 'payment_capture': '1'})
         return render(request, 'userhomepagenew/checkout.html', {'items': items, 'order': order, 'total_price':total_price, 'user':user, 'address':address})
     else:
         return render(request, 'userhomepagenew/index.html')
@@ -637,7 +642,10 @@ def user_payment(request):
             state = request.POST['state']
             city = request.POST['city']
             zipcode = request.POST['zipcode']
-            print(address)
+            payment = request.POST['paymentMethod']
+            print(payment)
+            mode = payment
+            
 
             if ShippingAddress.objects.filter(address=address, state=state, city=city, zipcode=zipcode).exists():
                 cart = OrderItem.objects.filter(user=user)
@@ -654,11 +662,12 @@ def user_payment(request):
             for item in cart:
                 Order.objects.create(user=user, address=address_instance, product=item.product,
                                      total_price=item.product.price,
-                                     transaction_id=transaction_id, date_ordered=date, complete=True)
+                                     transaction_id=transaction_id, date_ordered=date,complete=True, payment_mode=mode)
                 item.product.save()
             cart.delete()
             messages.info(request, "Placed Order")
-            return redirect(registereduserhomepage)
+            return JsonResponse('success',safe=False)
+            # return redirect(registereduserhomepage)
             # return render(request, 'home/payment.html')
         else:
 

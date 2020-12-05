@@ -300,7 +300,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<ul class="dropdown-menu extended logout">
 					<!-- <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
 					<li><a href="#"><i class="fa fa-cog"></i> Settings</a></li> -->
-					<li><a href="{% url 'adminlogout' %}"><i class="fa fa-key"></i> Log Out</a></li>
+					<li><a href="{% url 'admin-logout' %}"><i class="fa fa-key"></i> Log Out</a></li>
 				</ul>
 			</li>
 			<!-- user login dropdown end -->
@@ -318,7 +318,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="leftside-navigation">
 				<ul class="sidebar-menu" id="nav-accordion">
 					<li>
-						<a class="" href="{% url 'admindashboard' %}">
+						<a class="" href="{% url 'admin-dashboard' %}">
 							<i class="fa fa-dashboard"></i>
 							<span>Dashboard</span>
 						</a>
@@ -331,7 +331,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</li>
 					
 					<li class="active" class="sub-menu">
-						<a class="active"   href="{% url 'productmanagement' %}">
+						<a class="active"   href="{% url 'product-management' %}">
 							<i class="fa fa-book"></i>
 							<span>Product Management</span>
 						</a>

@@ -296,7 +296,7 @@
 					<ul class="dropdown-menu extended logout">
 						<!-- <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
 						<li><a href="#"><i class="fa fa-cog"></i> Settings</a></li> -->
-						<li><a href="{% url 'adminlogout' %}"><i class="fa fa-key"></i> Log Out</a></li>
+						<li><a href="{% url 'admin-logout' %}"><i class="fa fa-key"></i> Log Out</a></li>
 					</ul>
 				</li>
 				<!-- user login dropdown end -->
@@ -314,7 +314,7 @@
 				<div class="leftside-navigation">
 					<ul class="sidebar-menu" id="nav-accordion">
 						<li>
-							<a class="" href="{% url 'admindashboard' %}">
+							<a class="" href="{% url 'admin-dashboard' %}">
 								<i class="fa fa-dashboard"></i>
 								<span>Dashboard</span>
 							</a>
@@ -327,7 +327,7 @@
 						</li>
 						
 						<li class="sub-menu">
-							<a class="active"   href="{% url 'productmanagement' %}">
+							<a class="active"   href="{% url 'product-management' %}">
 								<i class="fa fa-book"></i>
 								<span>Product Management</span>
 							</a>
@@ -372,11 +372,7 @@
 											<div class="form-group valid-form">
 												<input type="text" class="form-control" id="productname" name="product_name" placeholder="Product Name" required="">
 											</div>
-											<!-- <div class="form-group has-feedback">
-												<input type="text" class="form-control" name="category" placeholder="category"  required=""> -->
-												<!-- <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-												<span class="help-block with-errors">Please enter a valid email address</span> -->
-											<!-- </div> -->
+										
 											<div class="form-group col-md-6 fone py-3"> <label>Category</label>
 													<select name="category" id="category">
 														{% for x in value %}
@@ -384,7 +380,7 @@
 														{% endfor %}
 													</select> </div>
 											<div class="form-group">
-											  <input type="text"   class="form-control" id="price" name="price" placeholder="Price" required="">
+											  <input type="number"   class="form-control" id="price" name="price" placeholder="Price" required="">
 											  <!-- <span class="help-block">Minimum of 6 characters</span> -->
 											</div>
 											<div class="form-group">
@@ -393,15 +389,9 @@
 											</div>
 											<div class="form-group">
 												<input type="number"   class="form-control" id="quantity" name="quantity" placeholder="quantity" required="">
-												<!-- <span class="help-block">Minimum of 6 characters</span> -->
-											  </div>
-											<!-- <div class="form-group">
-												<input type="file" class="form-control" id="image"  name="image" placeholder="choose" required="" onchange="viewImage(event)">
 												
 											  </div>
-											<div>
-													<img id="myimg" style="height: 200px; width:200px" src="" alt="">
-											</div> -->
+											
 											 <!-- button for adding img -->
 											 <div class="input-group form-group">
 												<button type="button" class="btn btn-primary" id="img-button">add img</button>

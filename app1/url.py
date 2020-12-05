@@ -4,33 +4,33 @@ from . import views
 
 urlpatterns = [
 
-    path('adminlogin/', views.adminlogin, name="adminlogin"),   
-    path('admindashboard', views.admindashboard, name="admindashboard"),
-    path('userlogin/', views.userlogin, name="userlogin"),
+    path('admin-login/', views.admin_login, name="admin-login"),   
+    path('admin-dashboard', views.admin_dashboard, name="admin-dashboard"),
+   
     path('register/', views.userregistration, name="register"),
-    path('productmanagement/', views.productmanagement, name="productmanagement"),  
-    path('addproduct/', views.addproduct, name='addproduct'),
+    path('product-management/', views.product_management, name="product-management"),  
+    path('add-product/', views.add_product, name='addproduct'),
     path('delete/<int:id>', views.delete, name='delete'),
     path('edit/<int:id>', views.edit, name='edit'),
     path('update/<int:id>', views.update, name="update"),
-    path('usermanagemnet', views.usermanagemnet, name="usermanagemnet"),
-    path('deleteuser/<int:id>', views.deleteuser, name='deleteuser'),
-    path('adduser/', views.adduser, name="adduser"),
-    path('edituser/<int:id>', views.edituser, name='edituser'),
-    path('updateuser/<int:id>', views.updateuser, name="updateuser"),
-    path('adminlogout/', views.adminlogout, name="adminlogout"),
+    path('user-managemnet', views.user_managemnet, name="usermanagemnet"),
+    path('delete-user/<int:id>', views.delete_user, name='deleteuser'),
+    path('add-user/', views.add_user, name="adduser"),
+    path('edit-user/<int:id>', views.edit_user, name='edituser'),
+    path('block-user/<int:id>', views.block_user, name="block_user"),
+    path('update-user/<int:id>', views.update_user, name="updateuser"),
+    path('admin-logout/', views.admin_logout, name="admin-logout"),
     
     
   
-    path('categorymanagement', views.categorymanagement, name="categorymanagement"),
-    path('addcategory/', views.addcategory, name="addcategory"),
-    path('deletecategory/<int:id>', views.deletecategory, name='deletecategory'),
+    path('category-management', views.category_management, name="categorymanagement"),
+    path('add-category/', views.add_category, name="addcategory"),
+    path('delete-category/<int:id>', views.delete_category, name='deletecategory'),
     path('manage-order/', views.manage_order, name="manage_order"),
-    path('delete_order/<int:id>', views.delete_order, name="delete_order"),
-    path('cancel_order/<int:id>', views.cancel_order, name="cancel_order"),
+    path('delete-order/<int:id>', views.delete_order, name="delete_order"),
+    path('cancel-order/<int:id>', views.cancel_order, name="cancel_order"),
     path('report/', views.report, name="report"),
-     path('block_user/<int:id>', views.block_user, name="block_user"),
-
+  
 
 
   
@@ -38,14 +38,14 @@ urlpatterns = [
     #user home pages ------------------------------------------------------------------------------------------------------------------------------
     
 
-
+    # path('user-login/', views.user_login, name="userlogin"),
     path('', views.userhomepage, name="userhomepage"),
     path('registereduserhomepage', views.registereduserhomepage, name="registereduserhomepage"),
     path('contact/', views.contact, name="contact"),
     path('quickview/<int:id>', views.quickview, name="quickview"),
     path('checkout/', views.checkout, name="checkout"),
     path('cart/', views.cart, name="cart"),
-    path('userlogin/', views.userlogin, name="userlogin"),
+    path('user-login/', views.user_login, name="userlogin"),
     path('userlogout/', views.userlogout, name="userlogout"),
     path('add-cart/<int:id>', views.add_cart, name="add_cart"),
     path('user-removeOrderItem/<int:id>', views.user_removeOrderItem, name="user_removeOrderItem"),
@@ -54,8 +54,8 @@ urlpatterns = [
     path('profile/', views.profile, name="profile"),
     path('edit_profile/', views.edit_profile, name="edit_profile"),
     path('edit_profile_address/', views.edit_profile_address, name="edit_profile_address"),
-    path('check_phone/', views.check_phone, name="check_phone"),
-    path('confirm_otp', views.confirm_otp, name="confirm_otp"),
+    path('check-phone/', views.check_phone, name="check_phone"),
+    path('confirm-otp', views.confirm_otp, name="confirm_otp"),
 
 
     

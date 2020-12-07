@@ -258,6 +258,9 @@ def add_user(request):
         return redirect(admin_login)
 
 
+
+
+
 #category management by admin
 def category_management(request):
     value = category.objects.all().order_by('id')
@@ -458,17 +461,17 @@ def confirm_otp(request):
                 if user is not None:
                     if user.is_active == False:
                         messages.info(request, 'user is blocked')
-                        return redirect('userlogin')
+                        return redirect(user_login)
                     else:
                         auth.login(request, user)
                         # value = products.objects.all()
                         return redirect('registereduserhomepage')
                 else:
-                    return redirect(userlogin)
+                    return redirect(user_login)
                 
             else:
                 messages.error(request,'User not Exist')
-                return redirect(userlogin)
+                return redirect(user_login)
 
         else:
             return HttpResponse("oops")
@@ -508,7 +511,7 @@ def userregistration(request):
             else:
                 user = User.objects.create_user(first_name=name, username=username, email=email, password=password, last_name=mobile)
                 user.save()
-                return redirect('userlogin')
+                return redirect(user_login)
         else:
             messages.info(request, 'Password does not matching')
             return render(request, 'userregistration.html')
@@ -541,7 +544,7 @@ def registereduserhomepage(request):
         print(user)
         return render(request, 'userhomepagenew/registereduser.html',{'value':value, 'user':user, 'hai':hai})
     else:
-        return redirect(userlogin)
+        return redirect(user_login)
 
 def contact(request):
     if request.user.is_authenticated:

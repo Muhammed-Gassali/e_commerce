@@ -665,7 +665,7 @@ def user_payment(request):
             for item in cart:
                 Order.objects.create(user=user, address=address_instance, product=item.product,
                                      total_price=item.product.price,
-                                     transaction_id=transaction_id, date_ordered=date,complete=True, payment_mode=mode)
+                                     transaction_id=transaction_id, date_ordered=date,complete=True, payment_mode=mode, quantity=item.quantity)
                 item.product.save()
             cart.delete()
             messages.info(request, "Placed Order")

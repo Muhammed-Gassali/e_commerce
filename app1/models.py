@@ -47,6 +47,8 @@ class Order(models.Model):
     total_price = models.IntegerField(null=True, blank=True)
     payment_mode = models.CharField(max_length=200, null=True)
     order_verify = models.BooleanField(default=True, null=True, blank=False)
+    quantity = models.IntegerField(default=0, null=True, blank=True)
+
 
 
 

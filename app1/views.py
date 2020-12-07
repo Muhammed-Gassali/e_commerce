@@ -94,7 +94,7 @@ def add_product(request):
             format, imgstr = image_data.split(';base64,')
             ext = format.split('/')[-1]
 
-            data = ContentFile(base64.b64decode(imgstr), name=productname + '.' + ext)
+            data = ContentFile(base64.b64decode(imgstr), name=product_name + '.' + ext)
 
             product = products.objects.create(product_name=product_name, category=cat, price=price, description=desc, image=data, quantity=quantity)
             product.save()
@@ -247,7 +247,7 @@ def add_user(request):
                 else:
                     user = User.objects.create_user(first_name=name, username=user_name, email=email, password=password, last_name=mobile)
                     user.save()
-                    return redirect('user_managemnet')
+                    return redirect(user_managemnet)
             else:
                 messages.info(request, 'password does not match')
                 return render(request, 'useradd.html')
@@ -361,7 +361,7 @@ def report(request):
 # fuction used for loading userlogin
 def user_login(request):
     if request.user.is_authenticated:
-        return redirect('registereduserhomepage')
+        return redirect(registereduserhomepage)
     if request.method == "POST":
         user_name = request.POST['username']
         password = request.POST['password']
@@ -372,15 +372,15 @@ def user_login(request):
         if user is not None and check_password(password,user.password):
             if user.is_active == False:
                 messages.info(request, 'user is blocked')
-                return redirect('user_login')
+                return redirect(user_login)
             else:
                 auth.login(request, user)
                 value = products.objects.all()
-                return redirect('registereduserhomepage')
+                return redirect(registereduserhomepage)
         else:   
             value={"username":user_name}
             messages.info(request, 'invalid credentials')
-            return redirect('user_login')
+            return redirect(user_login)
     else:
         return render(request, 'userloginpage.html')
     
@@ -388,7 +388,7 @@ def user_login(request):
 
 def check_phone(request):
     if request.user.is_authenticated:
-        return redirect('registereduserhomepage')
+        return redirect(registereduserhomepage)
     otp = 1
     if request.method == 'POST':
         phone_number = request.POST['phone']
@@ -431,7 +431,7 @@ def check_phone(request):
 
 def confirm_otp(request):
     if request.user.is_authenticated:
-        return redirect('registereduserhomepage')
+        return redirect(registereduserhomepage)
     else:
         if request.method == 'POST':
             otp_number = request.POST['otp']

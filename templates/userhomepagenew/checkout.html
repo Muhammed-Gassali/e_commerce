@@ -383,7 +383,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!------------------------Payment mode -------------------->
 
 
-					<div class="radio">
+					<!-- <div class="radio">
 						<label>
 						  <input type="radio" name="survey" id="Radios1" value="Yes">
 						  Cash On Delivery
@@ -400,32 +400,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						  <input type="radio" name="survey" id="Radios2" value="No">
 							RazorPay
 						</label>
-					  </div>
+					  </div> -->
+					  <br><br>
 					  <div id="paypal-button-container"></div>
 					  <form>
 					<button type="button" class="btn btn-success" onclick="razorpay()">razorpay</button>
 				</form>
-					  <!-- razorpay  -->
-					  <!-- <form action="{% url 'checkout' %}" method="POST">
-						  {% csrf_token %}
-						<script
-							src="https://checkout.razorpay.com/v1/checkout.js"
-							data-key="rzp_test_666QJpopWh4z27" 
-							data-amount="{{total_price}}" 
-							data-currency="INR"
-							data-order_id="{{order_id}}"
-							data-buttontext="Pay with Razorpay"
-							data-name="Acme Corp"
-							data-description="A Wild Sheep Chase is the third novel by Japanese author Haruki Murakami"
-							data-image="https://example.com/your_logo.jpg"
-							data-prefill.name="pc"
-							data-prefill.email="{{user.email}}"
-							data-theme.color="#F37254"
-						></script>
-						<input type="hidden" custom="Hidden Element" name="hidden">
-						</form> -->
-						
-
+					  
+					  
+						<!-- razorpay  -->
 						<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 						<script>
 							function razorpay(){
@@ -444,7 +427,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								"handler": function (response) 
 										{
 									
-									alert("successssssssssssssssssssssssssssssssssssssssssssss")
+									alert("success")
 									successRazorpay()
 									//submitFormData(payment)
 								},
@@ -483,7 +466,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								success: function( data  ){
 								  if (data == 'success'){
 					  
-									window.location.replace('/registereduserhomepage')
+									window.location.replace('/registered-user-home-page')
 								  }
 					  
 								}
@@ -508,7 +491,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								success: function( data  ){
 								  if (data == 'success'){
 					  
-									window.location.replace('/registereduserhomepage')
+									window.location.replace('/registered-user-home-page')
 								  }
 					  
 								}

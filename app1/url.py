@@ -7,7 +7,7 @@ urlpatterns = [
     path('admin-login/', views.admin_login, name="admin-login"),   
     path('admin-dashboard', views.admin_dashboard, name="admin-dashboard"),
    
-    path('register/', views.userregistration, name="register"),
+    
     path('product-management/', views.product_management, name="product-management"),  
     path('add-product/', views.add_product, name='addproduct'),
     path('delete/<int:id>', views.delete, name='delete'),
@@ -39,16 +39,17 @@ urlpatterns = [
     
 
     # path('user-login/', views.user_login, name="userlogin"),
-    path('', views.userhomepage, name="userhomepage"),
-    path('registereduserhomepage', views.registereduserhomepage, name="registereduserhomepage"),
+    path('', views.user_home_page, name="userhomepage"),
+    path('registered-user-home-page', views.registered_user_home_page, name="registereduserhomepage"),
     path('contact/', views.contact, name="contact"),
     path('quickview/<int:id>', views.quickview, name="quickview"),
     path('checkout/', views.checkout, name="checkout"),
     path('cart/', views.cart, name="cart"),
     path('user-login/', views.user_login, name="userlogin"),
-    path('userlogout/', views.userlogout, name="userlogout"),
+    path('register/', views.user_registration, name="register"),
+    path('user-logout/', views.user_logout, name="userlogout"),
     path('add-cart/<int:id>', views.add_cart, name="add_cart"),
-    path('user-removeOrderItem/<int:id>', views.user_removeOrderItem, name="user_removeOrderItem"),
+    path('user-removeOrderItem/<int:id>', views.user_remove_Order_Item, name="user_removeOrderItem"),
     path('user_payment/', views.user_payment, name="user_payment"),
     path('user-order/', views.user_order, name="user_order"),
     path('profile/', views.profile, name="profile"),
@@ -56,6 +57,7 @@ urlpatterns = [
     path('edit_profile_address/', views.edit_profile_address, name="edit_profile_address"),
     path('check-phone/', views.check_phone, name="check_phone"),
     path('confirm-otp', views.confirm_otp, name="confirm_otp"),
+    # path('cart/update/<int:id>', views.cart_update, name="cart_update"),
 
 
     

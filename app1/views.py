@@ -6,7 +6,7 @@ from django.contrib import messages
 from .models import products,category,Order,OrderItem,ShippingAddress,ProfilePicture   
 from django.http import JsonResponse
 import json
-import datetime
+from datetime import date
 from django.db.models import Sum
 import uuid
 
@@ -322,6 +322,9 @@ def report(request):
             print("entered ***************************************")
             start = request.POST['start_date']
             end = request.POST['end_date']
+            success =  Order.objects.filter(date_ordered__range=[start, end], order_verify=True)
+            fail =  Order.objects.filter(date_ordered__range=[start, end], order_verify=False)
+
             orders = Order.objects.filter(date_ordered__range=[start,end])
             dict = {}           
             for order in orders:
@@ -350,10 +353,14 @@ def report(request):
                         order_cancelled[y.date_ordered]["price"] += y.orderprice
                         order_cancelled[y.date_ordered]["total_products"] += y.total_products
 
-            context = {'order_success': order_success, 'order_cancelled': order_cancelled}
+            context = {'order_success': order_success, 'order_cancelled': order_cancelled, 'success':success, 'fail':fail}
             return render(request, 'adminreport.html', context)
         else:
-            return render(request, 'adminreport.html')
+            today = date.today()
+            status = Order.objects.filter(date_ordered=today, order_verify=True)
+            failed = Order.objects.filter(date_ordered=today, order_verify=False)
+            dictionary = {'success':status, 'fail':failed}
+            return render(request, 'adminreport.html', dictionary)
     else:
         return redirect(admin_login)
 
@@ -364,12 +371,10 @@ def report(request):
 # fuction used for loading userlogin
 def user_login(request):
     if request.user.is_authenticated:
-        return redirect(registereduserhomepage)
+        return redirect(registered_user_home_page)
     if request.method == "POST":
         user_name = request.POST['username']
         password = request.POST['password']
-
-            
         user = User.objects.filter(username=user_name).first()
 
         if user is not None and check_password(password,user.password):
@@ -379,7 +384,7 @@ def user_login(request):
             else:
                 auth.login(request, user)
                 value = products.objects.all()
-                return redirect(registereduserhomepage)
+                return redirect(registered_user_home_page)
         else:   
             value={"username":user_name}
             messages.info(request, 'invalid credentials')
@@ -391,7 +396,7 @@ def user_login(request):
 
 def check_phone(request):
     if request.user.is_authenticated:
-        return redirect(registereduserhomepage)
+        return redirect(registered_user_home_page)
     otp = 1
     if request.method == 'POST':
         phone_number = request.POST['phone']
@@ -434,7 +439,7 @@ def check_phone(request):
 
 def confirm_otp(request):
     if request.user.is_authenticated:
-        return redirect(registereduserhomepage)
+        return redirect(registered_user_home_page)
     else:
         if request.method == 'POST':
             otp_number = request.POST['otp']
@@ -465,7 +470,7 @@ def confirm_otp(request):
                     else:
                         auth.login(request, user)
                         # value = products.objects.all()
-                        return redirect('registereduserhomepage')
+                        return redirect(registered_user_home_page)
                 else:
                     return redirect(user_login)
                 
@@ -480,7 +485,7 @@ def confirm_otp(request):
 
 
 # function for user logout
-def userlogout(request):
+def user_logout(request):
     if request.user.is_authenticated:
        auth.logout(request)
        return redirect('/')
@@ -490,26 +495,25 @@ def userlogout(request):
 
 
 # function used to userregistrtaion
-def userregistration(request):
+def user_registration(request):
     if request.user.is_authenticated:
-        return redirect('registereduserhomepage')
-
+        return redirect(registered_user_home_page)
     if request.method == 'POST':
         name = request.POST['name']
-        username = request.POST['username']
+        user_name = request.POST['username']
         email = request.POST['email']
         mobile = request.POST['mobile']
         password = request.POST['password1']
         password2 = request.POST['password2']
         if password == password2:
-            if User.objects.filter(username=username).exists() or User.objects.filter(email=email).exists():
-                if User.objects.filter(username=username).exists():
-                    messages.info(request, 'username already exists')
+            if User.objects.filter(username=user_name).exists() or User.objects.filter(email=email).exists():
+                if User.objects.filter(username=user_name).exists():
+                    messages.info(request, 'user name already exists')
                 elif User.objects.filter(email=email).exists():
                     messages.info(request, 'email already exists')
                 return render(request, 'userregistration.html')
             else:
-                user = User.objects.create_user(first_name=name, username=username, email=email, password=password, last_name=mobile)
+                user = User.objects.create_user(first_name=name, username=user_name, email=email, password=password, last_name=mobile)
                 user.save()
                 return redirect(user_login)
         else:
@@ -525,9 +529,9 @@ def userregistration(request):
 
 
 # function to test user hom page
-def userhomepage(request):
+def user_home_page(request):
     if request.user.is_authenticated:
-        return redirect(registereduserhomepage)
+        return redirect(registered_user_home_page)
     else:
         value= products.objects.all()
         return render(request, 'userhomepagenew/index.html',{'value':value})
@@ -535,7 +539,7 @@ def userhomepage(request):
 
 
 #function to get registered user home page
-def registereduserhomepage(request):
+def registered_user_home_page(request):
     if request.user.is_authenticated:
         value= products.objects.all()
         user = request.user
@@ -544,7 +548,7 @@ def registereduserhomepage(request):
         print(user)
         return render(request, 'userhomepagenew/registereduser.html',{'value':value, 'user':user, 'hai':hai})
     else:
-        return redirect(user_login)
+        return redirect(user_home_page)
 
 def contact(request):
     if request.user.is_authenticated:
@@ -577,7 +581,48 @@ def cart(request):
 
         return render(request, 'userhomepagenew/cart.html', {'cart_data': cart, 'total_price':total_price})
     else:
-        return render(request, 'userhomepagenew/index.html')
+        return redirect(user_home_page)
+
+
+# def cart_update(request, id):
+#     if request.method == 'POST':
+#         user = request.user
+#         action = request.POST['action']
+#         if action == 'add':
+#             print(action)
+#             carts = OrderItem.objects.filter(user=user)
+#             cart = OrderItem.objects.get(id=id)
+#             cart.quantity += 1
+#             cart.save()
+#             product_total = cart.product.price * cart.quantity
+#             print(id)
+#             print(request.POST)
+#             get_total = 0
+#             for x in carts:
+#                 get_total = x.get_total + get_total
+#             return JsonResponse({"product_total": product_total, "grand_total": get_total}, safe=False)
+#         elif action == 'minus':
+#             print(action)
+#             carts = OrderItem.objects.filter(user=user)
+#             cart = OrderItem.objects.get(id=id)
+#             cart.quantity -= 1
+#             cart.save()
+
+#             product_total = cart.product.price * cart.quantity
+#             print(id)
+#             print(request.POST)
+#             get_total = 0
+#             for x in carts:
+#                 get_total = x.get_total + get_total
+#             return JsonResponse({"product_total": product_total, "grand_total": get_total}, safe=False)
+
+#     else:
+#         user = request.user
+#         cart = OrderItem.objects.filter(user=user)
+#         return render(request, 'userhomepagenew/cart.html', {'cart_data': cart})
+
+
+
 
 
 def add_cart(request, id):
@@ -585,29 +630,31 @@ def add_cart(request, id):
     if request.user.is_authenticated:
         user = request.user
         product = products.objects.get(id=id)
-        if OrderItem.objects.filter(product=product).exists():
-            order = OrderItem.objects.get(product=product)
+        if OrderItem.objects.filter(product=product, user=user).exists():
+            order = OrderItem.objects.get(product=product, user=user)
             if order.quantity <= order.product.quantity:
                 order.quantity = order.quantity+1
                 order.save()
                 return redirect(cart)
             else:
-                return redirect(registereduserhomepage)
+                return redirect(registered_user_home_page)
         else:
             quantity = 1
 
             items = OrderItem.objects.create(user=user, product=product, quantity=quantity, total_price=product.price*quantity)
             return redirect(cart)
-        
     else:
-        return render(request, 'userhomepagenew/index.html')
+        return redirect(user_home_page)
 
 
-def user_removeOrderItem(request, id):
-    b = OrderItem.objects.get(id=id)
-    b.delete()
-    print("Deleted Order")
-    return redirect(cart)
+def user_remove_Order_Item(request, id):
+    if request.user.is_authenticated:
+        b = OrderItem.objects.get(id=id)
+        b.delete()
+        print("Deleted Order")
+        return redirect(cart)
+    else:
+         return redirect(user_home_page)
 
 
 def checkout(request):
@@ -631,7 +678,8 @@ def checkout(request):
             payment = client.order.create({'amount':order_amount, 'currency':order_currency, 'payment_capture': '1'})
         return render(request, 'userhomepagenew/checkout.html', {'items': items, 'order': order, 'total_price':total_price, 'user':user, 'address':address})
     else:
-        return render(request, 'userhomepagenew/index.html')
+         return redirect(user_home_page)
+
 
 
 def user_payment(request):
@@ -640,7 +688,6 @@ def user_payment(request):
         print("Authenticated User")
         if request.method == 'POST':
             user = request.user
-        
             address = request.POST['address1']
             state = request.POST['state']
             city = request.POST['city']
@@ -664,7 +711,7 @@ def user_payment(request):
             address_instance = ShippingAddress.objects.get(address=address)
             for item in cart:
                 Order.objects.create(user=user, address=address_instance, product=item.product,
-                                     total_price=item.product.price,
+                                     total_price=item.product.price*item.quantity,
                                      transaction_id=transaction_id, date_ordered=date,complete=True, payment_mode=mode, quantity=item.quantity)
                 item.product.save()
             cart.delete()
@@ -690,8 +737,8 @@ def user_order(request):
         order = Order.objects.filter(user=user)
         cart = OrderItem.objects.filter(user=user)
         return render(request, 'userhomepagenew/user_order.html', {'item_data': order})
-    return render(request, 'userhomepagenew/user_order.html')
-
+    else:
+         return redirect(user_home_page)
 
 
 def profile(request):
@@ -702,10 +749,8 @@ def profile(request):
             img=ProfilePicture.objects.get(user=user)
             return render(request, 'userhomepagenew/userprofile.html', {'value':user, 'img':img, 'address':address})
         return render(request, 'userhomepagenew/userprofile.html', {'value':user, 'address':address})
-        
-        
     else:
-        return redirect(userhomepage)
+        return redirect(user_home_page)
 
 
 def edit_profile_address(request):
@@ -732,7 +777,7 @@ def edit_profile_address(request):
         else:
             return redirect(profile)  
     else:
-        return redirect(userhomepage) 
+        return redirect(user_home_page) 
 
 
 def edit_profile(request):
@@ -740,13 +785,13 @@ def edit_profile(request):
         if request.method == 'POST':
             print("enterered  #######################################")
             name = request.POST['name']
-            username = request.POST['username']
+            user_name = request.POST['username']
             email = request.POST['email']
             mobile = request.POST['mobile']
         
             value = request.user
             value.first_name = name
-            value.username = username
+            value.username = user_name
             value.email = email
             value.last_name = mobile
             value.save() 
@@ -762,8 +807,8 @@ def edit_profile(request):
                     img = ProfilePicture.objects.create(image=image, user=user)
                 
         
-            return redirect('profile')
+            return redirect(profile)
         else:
-            return redirect('userhomepage')
+            return redirect(registered_user_home_page)
     else:
-        return redirect(userhomepage)
+        return redirect(user_home_page)

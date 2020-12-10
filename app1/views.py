@@ -6,6 +6,7 @@ from django.contrib import messages
 from .models import products,category,Order,OrderItem,ShippingAddress,ProfilePicture   
 from django.http import JsonResponse
 import json
+import datetime 
 from datetime import date
 from django.db.models import Sum
 import uuid
@@ -391,6 +392,7 @@ def user_login(request):
             return redirect(user_login)
     else:
         return render(request, 'userloginpage.html')
+        
     
 
 

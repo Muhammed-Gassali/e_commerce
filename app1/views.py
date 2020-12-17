@@ -111,7 +111,6 @@ def add_product(request):
 def delete(request,id):
     if request.session.has_key('admin_username'):
         value = products.objects.get(id = id)
-        print(id)
         value.delete()
         messages.info(request, 'deleted successfully')
         return redirect(product_management)
@@ -320,7 +319,7 @@ def report(request):
     
     if request.session.has_key('admin_username'):
         if request.method == "POST":
-            print("entered ***************************************")
+            
             start = request.POST['start_date']
             end = request.POST['end_date']
             success =  Order.objects.filter(date_ordered__range=[start, end], order_verify=True)
@@ -403,7 +402,7 @@ def check_phone(request):
     if request.method == 'POST':
         phone_number = request.POST['phone']
         request.session['phone_number'] = phone_number
-        print(phone_number)
+        
         if User.objects.filter(last_name=phone_number).exists():
             otp = 0
             # adding otp creation 
@@ -445,7 +444,7 @@ def confirm_otp(request):
     else:
         if request.method == 'POST':
             otp_number = request.POST['otp']
-            print(otp_number)
+            
             id_otp = request.session['id']
             url = "https://d7networks.com/api/verifier/verify"
 
@@ -546,8 +545,7 @@ def registered_user_home_page(request):
         value= products.objects.all()
         user = request.user
         hai = 0
-        print("entered")
-        print(user)
+    
         return render(request, 'userhomepagenew/registereduser.html',{'value':value, 'user':user, 'hai':hai})
     else:
         return redirect(user_home_page)
@@ -562,7 +560,7 @@ def contact(request):
 
 def quickview(request, id):
     if request.user.is_authenticated:
-        print(id)
+        
         value = 0
         product = products.objects.filter(id=id).first()
         return render(request, 'userhomepagenew/single.html', {'product': product, 'value':value})
@@ -573,7 +571,7 @@ def quickview(request, id):
 
 
 def cart(request):
-    print("--------------------------------Entered cart function---------------------------------")
+    
     if request.user.is_authenticated:
         user = request.user
         cart = OrderItem.objects.filter(user=user)
@@ -628,7 +626,7 @@ def cart(request):
 
 
 def add_cart(request, id):
-    print("----------------------------------entered add_cart function--------------------------")
+    # print("----------------------------------entered add_cart function--------------------------")
     if request.user.is_authenticated:
         user = request.user
         product = products.objects.get(id=id)
@@ -653,7 +651,7 @@ def user_remove_Order_Item(request, id):
     if request.user.is_authenticated:
         b = OrderItem.objects.get(id=id)
         b.delete()
-        print("Deleted Order")
+        # print("Deleted Order")
         return redirect(cart)
     else:
          return redirect(user_home_page)
@@ -685,9 +683,9 @@ def checkout(request):
 
 
 def user_payment(request):
-    print("Entered user paymnet function ----------------------------")
+    # print("Entered user paymnet function ----------------------------")
     if request.user.is_authenticated:
-        print("Authenticated User")
+        # print("Authenticated User")
         if request.method == 'POST':
             user = request.user
             address = request.POST['address1']
@@ -695,7 +693,7 @@ def user_payment(request):
             city = request.POST['city']
             zipcode = request.POST['zipcode']
             payment = request.POST['paymentMethod']
-            print(payment)
+            # print(payment)
             mode = payment
             
 
@@ -723,10 +721,9 @@ def user_payment(request):
             # return render(request, 'home/payment.html')
         else:
 
-            print("entered payment else conditioin")
+            # print("entered payment else conditioin")
             return render(request, 'userhomepagenew/checkout.html')
     else:
-        print("hhhhhhhhhhhhhhhhhhhhhhhhhh############")
         user = request.user
         cart = OrderItem.objects.filter(user=user)
         return render(request, 'userhomepagenew/checkout.html')
@@ -759,13 +756,13 @@ def edit_profile_address(request):
     if request.user.is_authenticated:
         if request.method=="POST":
             save_id = request.POST['id']
-            print("987697846937462913847387629837566")
-            print(save_id)
+            # print("987697846937462913847387629837566")
+            # print(save_id)
             save_address = request.POST['address']
             save_state = request.POST['state']
             save_city = request.POST['city']
             save_zipcode = request.POST['zipcode']
-            print(save_address)
+            # print(save_address)
             if ShippingAddress.objects.filter(address=save_address, state=save_state, city=save_city, zipcode=save_zipcode):
                 return redirect(profile)
             else:
@@ -785,7 +782,7 @@ def edit_profile_address(request):
 def edit_profile(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            print("enterered  #######################################")
+            # print("enterered  #######################################")
             name = request.POST['name']
             user_name = request.POST['username']
             email = request.POST['email']

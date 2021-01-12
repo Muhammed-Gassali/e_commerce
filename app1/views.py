@@ -35,7 +35,7 @@ def admin_login(request):
         admin_username = request.POST['username']
         admin_password = request.POST['password']
         if admin_username == "admin" and admin_password == "5554":
-            request.session['admin_username']= admin_username
+            request.session['admin_username'] = admin_username
             return  render(request, 'admindashboard.html')
             # return HttpResponse("hai")
         else:
@@ -492,9 +492,6 @@ def user_logout(request):
        return redirect('/')
    
 
-
-
-
 # function used to userregistrtaion
 def user_registration(request):
     if request.user.is_authenticated:
@@ -504,7 +501,7 @@ def user_registration(request):
         user_name = request.POST['username']
         email = request.POST['email']
         mobile = request.POST['mobile']
-        password = request.POST['password1']
+        password = request.POST['password1']    
         password2 = request.POST['password2']
         if password == password2:
             if User.objects.filter(username=user_name).exists() or User.objects.filter(email=email).exists():
@@ -560,7 +557,6 @@ def contact(request):
 
 def quickview(request, id):
     if request.user.is_authenticated:
-        
         value = 0
         product = products.objects.filter(id=id).first()
         return render(request, 'userhomepagenew/single.html', {'product': product, 'value':value})
@@ -582,44 +578,6 @@ def cart(request):
         return render(request, 'userhomepagenew/cart.html', {'cart_data': cart, 'total_price':total_price})
     else:
         return redirect(user_home_page)
-
-
-# def cart_update(request, id):
-#     if request.method == 'POST':
-#         user = request.user
-#         action = request.POST['action']
-#         if action == 'add':
-#             print(action)
-#             carts = OrderItem.objects.filter(user=user)
-#             cart = OrderItem.objects.get(id=id)
-#             cart.quantity += 1
-#             cart.save()
-#             product_total = cart.product.price * cart.quantity
-#             print(id)
-#             print(request.POST)
-#             get_total = 0
-#             for x in carts:
-#                 get_total = x.get_total + get_total
-#             return JsonResponse({"product_total": product_total, "grand_total": get_total}, safe=False)
-#         elif action == 'minus':
-#             print(action)
-#             carts = OrderItem.objects.filter(user=user)
-#             cart = OrderItem.objects.get(id=id)
-#             cart.quantity -= 1
-#             cart.save()
-
-#             product_total = cart.product.price * cart.quantity
-#             print(id)
-#             print(request.POST)
-#             get_total = 0
-#             for x in carts:
-#                 get_total = x.get_total + get_total
-#             return JsonResponse({"product_total": product_total, "grand_total": get_total}, safe=False)
-
-#     else:
-#         user = request.user
-#         cart = OrderItem.objects.filter(user=user)
-#         return render(request, 'userhomepagenew/cart.html', {'cart_data': cart})
 
 
 
@@ -756,13 +714,10 @@ def edit_profile_address(request):
     if request.user.is_authenticated:
         if request.method=="POST":
             save_id = request.POST['id']
-            # print("987697846937462913847387629837566")
-            # print(save_id)
             save_address = request.POST['address']
             save_state = request.POST['state']
             save_city = request.POST['city']
             save_zipcode = request.POST['zipcode']
-            # print(save_address)
             if ShippingAddress.objects.filter(address=save_address, state=save_state, city=save_city, zipcode=save_zipcode):
                 return redirect(profile)
             else:
@@ -782,7 +737,6 @@ def edit_profile_address(request):
 def edit_profile(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            # print("enterered  #######################################")
             name = request.POST['name']
             user_name = request.POST['username']
             email = request.POST['email']

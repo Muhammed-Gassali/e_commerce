@@ -42,7 +42,7 @@ class Order(models.Model):
     address = models.ForeignKey(ShippingAddress, on_delete=models.CASCADE, blank=True, null=True)
     product = models.ForeignKey(products, on_delete=models.CASCADE, blank=True, null=True)
     date_ordered = models.DateField(auto_now_add=True)
-    complete = models.BooleanField(default=False, null=True, blank=False)
+    complete = models   
     transaction_id = models.CharField(max_length=200, null=True)
     total_price = models.IntegerField(null=True, blank=True)
     payment_mode = models.CharField(max_length=200, null=True)

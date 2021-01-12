@@ -584,7 +584,6 @@ def cart(request):
 
 
 def add_cart(request, id):
-    # print("----------------------------------entered add_cart function--------------------------")
     if request.user.is_authenticated:
         user = request.user
         product = products.objects.get(id=id)
